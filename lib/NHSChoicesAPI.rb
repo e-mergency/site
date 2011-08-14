@@ -4,7 +4,7 @@ require 'open-uri'
 module NHSChoicesAPI
   include Nokogiri
 
-  NHSAPIKEY = 'NOCRIYLM'
+  NHSAPIKEY = ''
   
   class Scraper
     @api_url = 'http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/'
