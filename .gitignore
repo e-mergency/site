@@ -19,3 +19,7 @@ tmp/
 
 # Mac OS X Finder
 .DS_Store
+
+# Ignore css files and sass temp files
+*.css
+.sass-cache/
