@@ -38,6 +38,9 @@ group :development, :test do
   gem "jasmine", "~> 1"
 end
 
+
+# gem 'nestful', "~> 0.0.6"
+
 gem 'haml'
 gem 'sass'
 gem 'jquery-rails'
