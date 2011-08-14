@@ -1,0 +1,29 @@
+!!! 5
+
+%html
+  %head
+    %title FiftyFiftyImpact
+    = stylesheet_link_tag "resets/resets"
+    = stylesheet_link_tag "jquery-ui/ui-smoothness/jquery-ui-1.8.13.custom"
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = javascript_include_tag "application"
+    = yield :javascript_includes
+    = csrf_meta_tag
+
+  %body
+    #wrapper
+      #header
+        .content
+          Fifty Fifty Impact
+
+      #body
+        .content
+          = yield
+
+    #footer
+      .content
+        #copyright
+          &copy;
+          = Time.new.year
+          FiftyFiftyImpact
