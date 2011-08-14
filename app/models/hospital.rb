@@ -1,4 +1,6 @@
 class Hospital < ActiveRecord::Base
+  acts_as_gmappable :process_geocoding => false
+
   validates_presence_of :latitude, :longitude, :name
   validates_uniqueness_of :name
     
@@ -52,6 +54,10 @@ class Hospital < ActiveRecord::Base
     x = (Hospital.to_rad(lon2-lon1)) * Math.cos((Hospital.to_rad(lat1+lat2))/2)
     y = Hospital.to_rad(lat2-lat1)
     d = Math.sqrt(x*x + y*y) * earth_radius
+  end
+
+  def self.gmaps4rails_address
+    "#{self.longitude},#{self.latitude}"
   end
 
 end
