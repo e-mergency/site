@@ -16,12 +16,11 @@ class Hospital < ActiveRecord::Base
     earth_radius_at_lat = Math.cos(Float(lat)/180*Math::PI)*earth_radius
 
     # Check for valid input data
-    return [] if max_distance <= 0.0
     max_distance = [earth_radius, Float(max_distance)].min
 
     # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
-    delta_max_lon = Float(max_distance)/earth_radius/Math::PI*180
-    delta_max_lat = Float(max_distance)/earth_radius_at_lat/Math::PI*180
+    delta_max_lon = Float(max_distance)/earth_radius_at_lat/Math::PI*180
+    delta_max_lat = Float(max_distance)/earth_radius/Math::PI*180
     
     return Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat)) 
     

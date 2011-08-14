@@ -64,8 +64,43 @@ class HospitalTest < ActiveSupport::TestCase
 
   test "find_hospital_near" do
     assert Hospital.find_hospitals_near_latlon(0, 0, 10).count == 0
+
     simons = (Hospital.where :name => 'Simons Hospital')[0]
-#    Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 11000).count
-#    Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 11000).count
+    kates = (Hospital.where :name => 'Kates Hospital')[0]
+    peters = (Hospital.where :name => 'Peters Hospital')[0]
+    kushals = (Hospital.where :name => 'Kushals Hospital')[0]
+    florians = (Hospital.where :name => 'Florians Hospital')[0]
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 10000)
+    assert results.count == 5
+    assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(kushals) and results.include?(florians)
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 9900)
+    assert results.count == 4
+    assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(florians)
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 5000)
+    assert results.count == 4
+    assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(florians)
+    
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 4900)
+    assert results.count == 2
+    assert  results.include?(simons) and  results.include?(kates)
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 1000)
+    assert results.count == 2
+    assert  results.include?(simons) and  results.include?(kates)
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 900)
+    assert results.count == 1
+    assert  results.include?(simons) 
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 1)
+    assert results.count == 1
+    assert  results.include?(simons) 
+
+    results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 0)
+    assert results.count == 1
+    assert  results.include?(simons) 
   end
 end
