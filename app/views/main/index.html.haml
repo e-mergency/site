@@ -1,5 +1,20 @@
 - content_for :javascript_includes do
   = javascript_include_tag "cashimpactindex.js"
 
-- [1,2,3,4,5,6].each do |n|
-  = "This is message number #{n} or the homepage"
+#map-canvas
+  %img{:src => 'http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=800x500&maptype=roadmap&sensor=false', :width => 698, :height => 500}
+#hospital-list
+  .header
+    %a.sort-option{:href=>'#'} Agony
+    %a.sort-option{:href=>'#'} Distance
+    %a.sort-option{:href=>'#'} Wait Time
+  - (1..8).each do |n|
+    .list-item
+      .number= n
+      .details
+        .name= "Number #{n}"
+        .distance= "(#{n * 3.5}km)"
+        %a.more-info-link{:href=>"www.google.com"} More info
+      .clear
+.clear
+
