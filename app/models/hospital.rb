@@ -13,14 +13,14 @@ class Hospital < ActiveRecord::Base
 
   def self.find_hospitals_near_latlon(lat, lon, max_distance)
     earth_radius = 6371000.0
-    earth_radius_at_lat = Math.cos(Float(lat)/180*Math::PI)*earth_radius
+    earth_radius_at_lat = Math.cos(Hospital.to_rad(lat))*earth_radius
 
     # Check for valid input data
     max_distance = [earth_radius*2*Math::PI, Float(max_distance)].min
 
     # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
-    delta_max_lon = Float(max_distance)/earth_radius_at_lat/Math::PI*180
-    delta_max_lat = Float(max_distance)/earth_radius/Math::PI*180
+    delta_max_lon = Hospital.to_deg(Float(max_distance)/earth_radius_at_lat)
+    delta_max_lat = Hospital.to_deg(Float(max_distance)/earth_radius)
     
     hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat)) 
 
@@ -38,7 +38,11 @@ class Hospital < ActiveRecord::Base
   ### Class methods  ###
 
   def self.to_rad(ang)
-    rad = ang/180.0*Math::PI
+    rad = Float(ang)/180.0*Math::PI
+  end
+
+  def self.to_deg(ang)
+    rad = Float(ang)*180.0/Math::PI
   end
 
   def self.distance(lat1, lon1, lat2, lon2)
