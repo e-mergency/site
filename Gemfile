@@ -36,6 +36,7 @@ group :development, :test do
   gem "cucumber-rails", "~> 1.0"
 
   gem "jasmine", "~> 1"
+  gem "ruby-debug19"
 end
 
 
