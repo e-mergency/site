@@ -1,0 +1,20 @@
+<h1>Listing delays</h1>
+
+<h2><%= @hospital.name %></h2>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Minutes</th>
+  </tr>
+
+<% @delays.each do |delay| %>
+  <tr>
+    <td><%= delay.created_at %></td>
+    <td><%= delay.minutes %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Delay', new_hospital_delay_path %>

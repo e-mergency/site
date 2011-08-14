@@ -1,5 +1,6 @@
 class Hospital < ActiveRecord::Base
   acts_as_gmappable :process_geocoding => false
+  has_many :delays
 
   validates_presence_of :latitude, :longitude, :name
   validates_uniqueness_of :name
