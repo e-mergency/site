@@ -44,3 +44,4 @@ end
 gem 'haml'
 gem 'sass'
 gem 'jquery-rails'
+gem 'gmaps4rails'
