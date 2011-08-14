@@ -60,6 +60,16 @@ class HospitalTest < ActiveSupport::TestCase
 
     dist = Hospital.distance(kates.latitude, kates.longitude, florians.latitude, florians.longitude)
     assert((dist-6000).abs<25.0)
+
+    lon = simons.longitude + 0.5*(florians.longitude-simons.longitude)
+    lat = simons.latitude + 0.5*(peters.latitude-simons.latitude)
+
+    dist = florians.distance(lat, lon)
+    assert((dist-(Math.sqrt(5000**2+5000**2)/2)).abs<10)
+
+    dist = peters.distance(lat, lon)
+    assert((dist-(Math.sqrt(5000**2+5000**2)/2)).abs<10)
+
   end
 
   test "find_hospital_near" do
@@ -71,6 +81,7 @@ class HospitalTest < ActiveSupport::TestCase
     kushals = (Hospital.where :name => 'Kushals Hospital')[0]
     florians = (Hospital.where :name => 'Florians Hospital')[0]
 
+    # Check that the correct hospitals in the bounding box are found
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 10000)
     assert results.count == 5
     assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(kushals) and results.include?(florians)
@@ -102,5 +113,20 @@ class HospitalTest < ActiveSupport::TestCase
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 0)
     assert results.count == 1
     assert  results.include?(simons) 
+    
+    # Now check that hospitals in the bounding box but distance larger than of interest are removed
+    lon = simons.longitude + 0.5*(florians.longitude-simons.longitude)
+    lat = simons.latitude + 0.5*(peters.latitude-simons.latitude)
+    
+    results = Hospital.find_hospitals_near_latlon(lat, lon, Math.sqrt(5000**2+5000**2)/2-20)
+    assert results.size == 0
+
+    results = Hospital.find_hospitals_near_latlon(lat, lon, Math.sqrt(5000**2+5000**2)/2)
+    assert results.count == 3
+    assert  results.include?(simons) and  results.include?(florians) and results.include?(peters)
+
+    results = Hospital.find_hospitals_near_latlon(lat, lon, 5500)
+    assert results.count == 4
+    assert  results.include?(simons) and  results.include?(florians) and results.include?(peters) and results.include?(kates)
   end
 end

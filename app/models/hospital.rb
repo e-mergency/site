@@ -16,15 +16,23 @@ class Hospital < ActiveRecord::Base
     earth_radius_at_lat = Math.cos(Float(lat)/180*Math::PI)*earth_radius
 
     # Check for valid input data
-    max_distance = [earth_radius, Float(max_distance)].min
+    max_distance = [earth_radius*2*Math::PI, Float(max_distance)].min
 
     # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
     delta_max_lon = Float(max_distance)/earth_radius_at_lat/Math::PI*180
     delta_max_lat = Float(max_distance)/earth_radius/Math::PI*180
     
-    return Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat)) 
-    
-     #Hospital.find_each(:longtitude => (longtitude-delta_max..longtitude+delta_max), :latitude => (latitude-delta_max..latitude+delta_max)) do |hospital|
+    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat)) 
+
+    # Remove the hospitals with distance > max_distance
+    hospitals = []
+    hospitals_bb.each do |hospital| 
+        if hospital.distance(lat, lon) <= max_distance
+          hospitals.push(hospital)
+        end
+    end
+
+    return hospitals
   end
 
   ### Class methods  ###
