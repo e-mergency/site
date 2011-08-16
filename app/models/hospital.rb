@@ -1,4 +1,5 @@
 class Hospital < ActiveRecord::Base
+
   acts_as_gmappable :process_geocoding => false
   has_many :delays
 
@@ -8,10 +9,12 @@ class Hospital < ActiveRecord::Base
   validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
   validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
 
-  def distance(lat, lon)
+  attr_accessor :distance
+
+  def compute_distance(lat, lon)
     lat2 = self.latitude
     lon2 = self.longitude
-    distance = Hospital.distance(lat, lon, lat2, lon2)
+    distance = Hospital.compute_distance(lat, lon, lat2, lon2)
   end
 
   def self.find_hospitals_near_latlon(lat, lon, max_distance)
@@ -30,9 +33,10 @@ class Hospital < ActiveRecord::Base
     # Remove the hospitals with distance > max_distance
     hospitals = []
     hospitals_bb.each do |hospital| 
-        if hospital.distance(lat, lon) <= max_distance
-          hospitals.push(hospital)
-        end
+      hospital.distance = hospital.compute_distance(lat, lon)
+      if hospital.distance <= max_distance
+        hospitals.push(hospital)
+      end
     end
 
     return hospitals
@@ -48,7 +52,7 @@ class Hospital < ActiveRecord::Base
     rad = Float(ang)*180.0/Math::PI
   end
 
-  def self.distance(lat1, lon1, lat2, lon2)
+  def self.compute_distance(lat1, lon1, lat2, lon2)
     # For perfomance reasons use the equirectangular approximation.
     # Its fast and accurate for small distances
     earth_radius = 6371000.0

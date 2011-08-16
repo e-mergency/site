@@ -37,37 +37,37 @@ class HospitalTest < ActiveSupport::TestCase
     kushals = (Hospital.where :name => 'Kushals Hospital')[0]
     florians = (Hospital.where :name => 'Florians Hospital')[0]
 
-    dist = Hospital.distance(simons.latitude, simons.longitude, peters.latitude, peters.longitude)
+    dist = Hospital.compute_distance(simons.latitude, simons.longitude, peters.latitude, peters.longitude)
     assert((dist-5000).abs<1.0)
 
-    dist = simons.distance(peters.latitude, peters.longitude)
+    dist = simons.compute_distance(peters.latitude, peters.longitude)
     assert((dist-5000).abs<1.0)
 
-    dist = Hospital.distance(simons.latitude, simons.longitude, kates.latitude, kates.longitude)
+    dist = Hospital.compute_distance(simons.latitude, simons.longitude, kates.latitude, kates.longitude)
     assert((dist-1000).abs<10.0)
 
-    dist = Hospital.distance(simons.latitude, simons.longitude, florians.latitude, florians.longitude)
+    dist = Hospital.compute_distance(simons.latitude, simons.longitude, florians.latitude, florians.longitude)
     assert((dist-5000).abs<20.0)
 
-    dist = Hospital.distance(simons.latitude, simons.longitude, kates.latitude, kates.longitude)
+    dist = Hospital.compute_distance(simons.latitude, simons.longitude, kates.latitude, kates.longitude)
     assert((dist-1000).abs<10.0)
 
-    dist = Hospital.distance(peters.latitude, peters.longitude, florians.latitude, florians.longitude)
+    dist = Hospital.compute_distance(peters.latitude, peters.longitude, florians.latitude, florians.longitude)
     assert((dist-Math.sqrt(5000**2+5000**2)).abs<15.0)
 
-    dist = Hospital.distance(kushals.latitude, kushals.longitude, florians.latitude, florians.longitude)
+    dist = Hospital.compute_distance(kushals.latitude, kushals.longitude, florians.latitude, florians.longitude)
     assert((dist-Math.sqrt(5000**2+10000**2)).abs<5.0)
 
-    dist = Hospital.distance(kates.latitude, kates.longitude, florians.latitude, florians.longitude)
+    dist = Hospital.compute_distance(kates.latitude, kates.longitude, florians.latitude, florians.longitude)
     assert((dist-6000).abs<25.0)
 
     lon = simons.longitude + 0.5*(florians.longitude-simons.longitude)
     lat = simons.latitude + 0.5*(peters.latitude-simons.latitude)
 
-    dist = florians.distance(lat, lon)
+    dist = florians.compute_distance(lat, lon)
     assert((dist-(Math.sqrt(5000**2+5000**2)/2)).abs<10)
 
-    dist = peters.distance(lat, lon)
+    dist = peters.compute_distance(lat, lon)
     assert((dist-(Math.sqrt(5000**2+5000**2)/2)).abs<10)
 
   end
