@@ -42,6 +42,10 @@ class Hospital < ActiveRecord::Base
     return hospitals
   end
 
+  def current_delay
+    self.delays.first
+  end
+
   ### Class methods  ###
 
   def self.to_rad(ang)

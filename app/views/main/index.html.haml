@@ -8,13 +8,17 @@
     %a.sort-option{:href=>'#'} Agony
     %a.sort-option{:href=>'#'} Distance
     %a.sort-option{:href=>'#'} Wait Time
-  - (1..8).each do |n|
+  - @hospitals.each do |h|
     .list-item
-      .number= n
+      .number= h.id
       .details
-        .name= "Number #{n}"
-        .distance= "(#{n * 3.5}km)"
-        %a.more-info-link{:href=>"www.google.com"} More info
+        .name= h.name
+        .distance= "(#{h.distance/1000}km)"
+        - if h.current_delay.nil?
+          .delay= "(No delay information available)"
+        - else
+          .delay= "(#{h.current_delay.minutes}min)"
+        %a.more-info-link{:href=>"#{h.website_url}"} More info
       .clear
 .clear
 
