@@ -14,6 +14,13 @@
   %body
     %p.notice=notice
     %p.alert=alert
+    - if current_user
+      = "Hello #{current_user.email}  ("
+      = link_to 'Not you?', destroy_user_session_path, :method => :delete
+      = ")"
+    - else
+      = link_to 'Sign in', new_user_session_path
+
     #wrapper
       #header
         .content
