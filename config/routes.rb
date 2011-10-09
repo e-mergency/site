@@ -62,5 +62,13 @@ EMergency::Application.routes.draw do
   resources :hospitals do
     resources :delays
   end
+
+  resources :users do
+    member do
+      get 'index'
+      get 'edit_hospital'
+    end
+  end
+
   match 'map' => "hospitals#map"
 end
