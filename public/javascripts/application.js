@@ -12,9 +12,13 @@ function fitMapToWindow(){
     var mapCanvas = $('#map-canvas');
     var hospitalList = $('#hospital-list');
     var compensation = 2; //For borders
+    var mapImage = $('#gmapStatic');
+    
     mapCanvas.width($(window).width() - hospitalList.width() - compensation);
     
     //Set the new static map size
+    mapImage.width(mapCanvas.width());
+    
     clearTimeout(reloadGMapTimer);
     reloadGMapTimer = setTimeout('reloadGMap()', 1000); //$(document).oneTime(1000, reloadGMap());
 }
@@ -22,6 +26,7 @@ function fitMapToWindow(){
 function reloadGMap(){
     console.log("reloading Google map");
     var mapCanvas = $('#map-canvas');
-    var newGmapImage = "http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=" + mapCanvas.width() + "x500&maptype=roadmap&sensor=false";
-    mapCanvas.find('#gmapStatic').attr('src', newGmapImage).width(mapCanvas.width());
+    var mapImage = $('#gmapStatic');
+    var newGmapImage = "http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=" + mapImage.width() + "x" + mapImage.height() + "&maptype=roadmap&sensor=false";
+    mapImage.attr('src', newGmapImage)
 }

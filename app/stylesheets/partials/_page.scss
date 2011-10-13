@@ -150,31 +150,31 @@ a{
             border-bottom: 2px solid #eee;
             padding: 5px;
             
-            .number{
-                width: 20px;
+            .title{
                 height: 20px;
                 display: block;
                 font-size: 20px;
                 padding-top: 5px;
+                
+                .distance, .name{
+                    float: left;
+                }
+                .distance{
+                    font-size: 12px;
+                    margin-top: 4px;
+                    margin-left: 5px;
+                }
             }
             
             .details{
                 margin-top: 5px;
                 
-                .distance, .name, .more-info-link{
+                .more-info-link{
                 display: block;
-                }
-                
-                .distance, .name{
-                    float: left;
                 }
                 
                 .delay{
                     margin-top: 2px;
-                }
-                
-                .name{
-                    
                 }
                 
                 .more-info-link{

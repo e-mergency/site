@@ -10,11 +10,10 @@
     %a.sort-option{:href=>'#'} Wait Time
   - @hospitals.each do |h|
     .list-item
-      .number= h.id
+      .title
+        %span.name= h.name
+        %span.distance= "(#{(h.distance/1000).round(1)}km)"
       .details
-        .name= h.name
-        .distance= "(#{(h.distance/1000).round(1)}km)"
-        .clear
         - if h.current_delay.nil?
           .delay= "(No delay information available)"
         - else
