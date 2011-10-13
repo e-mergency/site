@@ -39,12 +39,18 @@ group :development, :test do
   gem "ruby-debug19"
 end
 
-
-# gem 'nestful', "~> 0.0.6"
-
-gem 'haml'
-gem 'sass'
+#Use JQuery not prototype
 gem 'jquery-rails'
+
+#Google maps
 gem 'gmaps4rails'
+
+#Gems required for user authentication
 gem 'devise'
 gem 'cancan'
+
+#Gems required for HTML5 boilerplate and associated functionality
+gem "compass"
+gem "haml"
+gem 'sass'
+gem "html5-boilerplate"

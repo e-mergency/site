@@ -42,7 +42,12 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.2.1)
       ffi (~> 1.0.6)
+    chunky_png (1.2.5)
     columnize (0.3.4)
+    compass (0.11.5)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     crack (0.1.8)
     cucumber (1.0.2)
       builder (>= 2.1.2)
@@ -62,11 +67,14 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     ffi (1.0.9)
+    fssm (0.2.7)
     gherkin (2.4.6)
       json (>= 1.4.6)
     gmaps4rails (0.11.0)
       crack
     haml (3.1.2)
+    html5-boilerplate (1.0.0)
+      compass (>= 0.11.1)
     i18n (0.5.0)
     jasmine (1.0.2.1)
       json_pure (>= 1.4.3)
@@ -157,11 +165,13 @@ PLATFORMS
 
 DEPENDENCIES
   cancan
+  compass
   cucumber (~> 1.0)
   cucumber-rails (~> 1.0)
   devise
   gmaps4rails
   haml
+  html5-boilerplate
   jasmine (~> 1)
   jquery-rails
   rails (= 3.0.9)
