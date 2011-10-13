@@ -13,11 +13,13 @@
       .number= h.id
       .details
         .name= h.name
-        .distance= "(#{h.distance/1000}km)"
+        .distance= "(#{(h.distance/1000).round(1)}km)"
+        .clear
         - if h.current_delay.nil?
           .delay= "(No delay information available)"
         - else
           .delay= "(#{h.current_delay.minutes}min)"
+        .clear
         %a.more-info-link{:href=>"#{h.website_url}"} More info
       .clear
 .clear

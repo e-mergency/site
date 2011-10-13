@@ -119,14 +119,15 @@ a{
     #hospital-list{
         float:right;
         width: 260px;
-        min-height: 400px;
+        height: 500px;
+        overflow: hidden;
         background-color: #ff0000;
         font-size: 12px;
         
         
         .header{
             background-color: #eee;
-            height: 40px;
+            height: 42px;
             padding: 10px 0px 0px 10px;
             
             .sort-option{
@@ -146,29 +147,30 @@ a{
             background-color: #fff;
             cursor: pointer;
             border-top: 2px solid #fff;
-            border-bottom: 2px solid #fff;
+            border-bottom: 2px solid #eee;
             padding: 5px;
             
             .number{
-                float: left;
                 width: 20px;
-                height: 30px;
+                height: 20px;
                 display: block;
                 font-size: 20px;
                 padding-top: 5px;
             }
             
             .details{
-                float: left;
                 margin-top: 5px;
                 
                 .distance, .name, .more-info-link{
-                float: left;
                 display: block;
                 }
                 
-                .distance{
-                    
+                .distance, .name{
+                    float: left;
+                }
+                
+                .delay{
+                    margin-top: 2px;
                 }
                 
                 .name{
@@ -176,8 +178,12 @@ a{
                 }
                 
                 .more-info-link{
-                    float: none;
-                    clear: left;
+                    margin-top: 8px;
+                    float: right;
+                    
+                    &:hover{
+                        text-decoration: underline;
+                    }
                 }
             }
             
