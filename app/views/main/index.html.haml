@@ -2,7 +2,7 @@
   =# javascript_include_tag "cashimpactindex.js"
 
 #map-canvas
-  %img{:src => 'http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=800x500&maptype=roadmap&sensor=false', :width => 698, :height => 500}
+  %img{:id => "gmapStatic", :src => 'http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=800x500&maptype=roadmap&sensor=false', :width => 698, :height => 500}
 #hospital-list
   .header
     %a.sort-option{:href=>'#'} Agony

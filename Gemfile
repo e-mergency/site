@@ -50,7 +50,7 @@ gem 'devise'
 gem 'cancan'
 
 #Gems required for HTML5 boilerplate and associated functionality
-gem "compass"
+gem "compass", ">= 0.11.5"
 gem "haml"
 gem 'sass'
 gem "html5-boilerplate"
