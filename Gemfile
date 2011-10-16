@@ -37,6 +37,8 @@ group :development, :test do
 
   gem "jasmine", "~> 1"
   gem "ruby-debug19"
+
+  gem "heroku"
 end
 
 #Use JQuery not prototype
