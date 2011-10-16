@@ -34,6 +34,7 @@ group :development, :test do
   # Cucmber
   gem "cucumber", "~> 1.0"
   gem "cucumber-rails", "~> 1.0"
+  gem "database_cleaner"
 
   gem "jasmine", "~> 1"
   gem "ruby-debug19"
