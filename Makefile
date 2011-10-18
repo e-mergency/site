@@ -4,3 +4,5 @@ default:
 	rake db:migrate
 	rake db:fixtures:load
 	rake bootstrap:all
+	rake test:units
+	rake cucumber
