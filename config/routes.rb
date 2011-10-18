@@ -65,7 +65,6 @@ EMergency::Application.routes.draw do
 
   resources :users do
     member do
-      get 'index'
       get 'edit_hospital'
     end
   end

@@ -11,6 +11,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/show
+  # GET /users/1/show.xml
+  def show 
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @user }
+    end
+  end
 
   # GET /users/1/edit_hospital
   # GET /users/1/edit_hospital.xml
