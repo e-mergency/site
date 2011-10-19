@@ -37,6 +37,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/edit_role
+  # GET /users/1/edit_role.xml
+  def edit_hospital
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @user }
+    end
+  end
+
   # PUT /users/1
   # PUT /users/1.xml
   def update

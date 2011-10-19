@@ -10,8 +10,14 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
+  after_create :set_default_role
+
   def role?(role)
         return !!self.roles.find_by_name(role.to_s.camelize)
+  end
+
+  def set_default_role
+     RolesUser.create(:user_id => self.id, :role_id => Role.find_by_name('guest').id)
   end
 
 end
