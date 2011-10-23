@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
   after_create :set_default_role
 
   def role?(role)
-        return !!self.roles.find_by_name(role.to_s.camelize)
+    return !!self.roles.find_by_name(role.to_s)
   end
 
   def set_default_role
-     RolesUser.create(:user_id => self.id, :role_id => Role.find_by_name('guest').id)
+    RolesUser.create(:user_id => self.id, :role_id => Role.find_by_name('guest').id)
   end
 
 end

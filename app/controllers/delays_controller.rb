@@ -1,5 +1,9 @@
 class DelaysController < ApplicationController
-    before_filter :get_hospital
+  before_filter :authenticate_user!
+  check_authorization
+  load_and_authorize_resource
+
+  before_filter :get_hospital
 
   def get_hospital
      @hospital = Hospital.find(params[:hospital_id])
