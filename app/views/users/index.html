@@ -21,6 +21,7 @@
       <% end %>
     </td>
     <td><%= link_to  "Change assigned hospital", edit_hospital_user_path(user.id) %>
+    <td><%= link_to  "Change assigned role", edit_role_user_path(user.id) %>
     <% if not user.hospital.nil? %>
       <%= link_to  "Add new delay time", new_hospital_delay_path(user.hospital.id) %>
       <%= link_to  "Show delay times", hospital_delays_path(user.hospital.id) %>

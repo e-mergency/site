@@ -73,7 +73,9 @@ EMergency::Application.routes.draw do
 
   resources :users do
     member do
+      put 'update_role'
       get 'edit_hospital'
+      get 'edit_role'
     end
   end
 

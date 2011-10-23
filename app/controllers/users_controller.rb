@@ -39,12 +39,29 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit_role
   # GET /users/1/edit_role.xml
-  def edit_hospital
+  def edit_role
     @user = User.find(params[:id])
+    @roles = Role.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @user }
+    end
+  end
+
+  # POST /users/1/update_role
+  def update_role
+    @user = User.find(params[:id])
+    @user.roles = [Role.find_by_id(params["post"]["id"])] 
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to(users_url, :flash => {:notice => 'User was successfully updated.'}) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -64,7 +81,5 @@ class UsersController < ApplicationController
       end
     end
   end
-
-
 
 end
