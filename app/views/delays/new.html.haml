@@ -5,11 +5,11 @@
     - @delay.errors.full_messages.each do |msg|
       .li= msg
     #current_waiting_time
-      = "Waiting Time: #{@hospital.current_delay.minutes} minutes"
+      = "Waiting Time: #{@hospital.current_delay.minutes} minutes" if not @hospital.current_delay.nil?
     #update_waiting_time
       = f.text_field :minutes, :size => 3
       = f.submit :value => "Update"
     
   .clear
   #last_updated
-    = "Last updated #{Integer((Time.now - @hospital.current_delay.updated_at)/60)} minutes ago"
+    = "Last updated #{Integer((Time.now - @hospital.current_delay.updated_at)/60)} minutes ago"  if not @hospital.current_delay.nil?
