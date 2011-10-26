@@ -14,7 +14,9 @@ namespace :bootstrap do
       end
       user.save
       # user.confirm!
-      RolesUser.create(:user => user, :role => Role.find_by_name("admin"))
+      # Change the role to a admin role
+      user.roles=[Role.find_by_name('admin')]
+      user.save
     end
   end
 
