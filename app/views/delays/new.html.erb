@@ -1,5 +1,6 @@
-<h1>New delay</h1>
+<h1><%= @hospital.name %></h1>
+
+Current waiting time: <%= @hospital.current_delay.minutes %> minutes <br>
+Last updated <%= Integer((Time.now - @hospital.current_delay.updated_at)/60)  %> minutes ago<br>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', hospital_delays_path(@hospital) %>

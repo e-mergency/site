@@ -38,7 +38,7 @@ class DelaysController < ApplicationController
 
     respond_to do |format|
       if @delay.save
-        format.html { redirect_to(hospital_delays_path(@hospital), :notice => 'Delay was successfully created.') }
+        format.html { redirect_to(new_hospital_delay_path(@hospital), :notice => 'Delay was successfully created.') }
         format.xml  { render :xml => @delay, :status => :created, :location => @delay }
       else
         format.html { render :action => "new" }
