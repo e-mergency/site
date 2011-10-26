@@ -197,6 +197,22 @@ a{
     }
 }
 
+/* Hospital Delay Time Updates */
+#update_hospital_delay_time{
+    width: 500px;
+    margin: 10px auto;
+    padding: 15px;
+    @include rounded('all', 4px);
+    background-color: #FFF;
+    border: 2px solid #EEE;
+    
+    h2{
+        font-size: 20px;
+        margin: 0px;
+        padding: 0px;
+    }
+}
+
 #footer{
     color: #FFFFFF;
     background-color: $nhsblue;
