@@ -1,0 +1,43 @@
+@mixin rounded($corner: all , $radius: 8px) {
+    @if $corner==all or $corner==bottom or $corner == right or $corner==bottom-right {webkit-border-bottom-right-radius: $radius;}
+    @if $corner==all or $corner==bottom or $corner == left or $corner==bottom-left {-webkit-border-bottom-left-radius: $radius;}
+    @if $corner==all or $corner==top or $corner == right or $corner==top-right {-webkit-border-top-right-radius: $radius;}
+    @if $corner==all or $corner==top or $corner == left or $corner==top-left {-webkit-border-top-left-radius: $radius;}
+
+    @if $corner==all or $corner==bottom or $corner == right or $corner==bottom-right {-khtml-border-radius-bottomright: $radius;}
+    @if $corner==all or $corner==bottom or $corner == left or $corner==bottom-left {-khtml-border-radius-bottomleft: $radius;}
+    @if $corner==all or $corner==top or $corner == right or $corner==top-right {-khtml-border-radius-topright: $radius;}
+    @if $corner==all or $corner==top or $corner == left or $corner==top-left {-khtml-border-radius-topleft: $radius;}
+
+    @if $corner==all or $corner==bottom or $corner == right or $corner==bottom-right {-moz-border-radius-bottomright: $radius;}
+    @if $corner==all or $corner==bottom or $corner == left or $corner==bottom-left {-moz-border-radius-bottomleft: $radius;}
+    @if $corner==all or $corner==top or $corner == right or $corner==top-right {-moz-border-radius-topright: $radius;}
+    @if $corner==all or $corner==top or $corner == left or $corner==top-left {-moz-border-radius-topleft: $radius;}
+
+    @if $corner==all or $corner==bottom or $corner == right or $corner==bottom-right {border-bottom-right-radius: $radius;}
+    @if $corner==all or $corner==bottom or $corner == left or $corner==bottom-left {border-bottom-left-radius: $radius;}
+    @if $corner==all or $corner==top or $corner == right or $corner==top-right {border-top-right-radius: $radius;}
+    @if $corner==all or $corner==top or $corner == left or $corner==top-left {border-top-left-radius: $radius;}
+    
+    /* useful if you don't want a bg color from leaking outside the border: */        
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+@mixin box_shadow($color: #CCC, $values: 1px 3px 3px){
+  box-shadow: $color $values;
+  -webkit-box-shadow: $color $values;
+  -moz-box-shadow: $color $values;
+}
+
+@mixin box_gradient($top,$bottom){
+      background-color: $top;
+      background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom)); /* Saf4+, Chrome */
+      background-image: -webkit-linear-gradient(top, $top, $bottom); /* Chrome 10+, Saf5.1+, iOS 5+ */
+      background-image:    -moz-linear-gradient(top, $top, $bottom); /* FF3.6 */
+      background-image:     -ms-linear-gradient(top, $top, $bottom); /* IE10 */
+      background-image:      -o-linear-gradient(top, $top, $bottom); /* Opera 11.10+ */
+      background-image:         linear-gradient(top, $top, $bottom);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='$top', EndColorStr='$bottom'); /* IE6–IE9 */
+}

@@ -4,6 +4,9 @@
 // Then we'll import the compass extension
 @import "html5-boilerplate";
 
+//Allow rounded corners
+@import "partials/extras";
+
 // Now, you can simply include everything
 // (except media) by uncommeting this line
 //@include html5-boilerplate;
