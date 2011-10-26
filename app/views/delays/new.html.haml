@@ -2,14 +2,21 @@
   %h2= @hospital.name
   .clear
   - form_for([@hospital, @delay]) do |f|
-    - @delay.errors.full_messages.each do |msg|
-      .li= msg
-    #current_waiting_time
-      = "Waiting Time: #{@hospital.current_delay.minutes} minutes" if not @hospital.current_delay.nil?
-    #update_waiting_time
-      = f.text_field :minutes, :size => 3
-      = f.submit :value => "Update"
-    
-  .clear
+    - if @delay.errors.any? 
+      %ul.errors.failed
+        - @delay.errors.full_messages.each do |msg|
+          %li= msg
+      .clear
+    #current_waiting_time_container
+      #current_waiting_time
+        = "Waiting Time: #{@hospital.current_delay.minutes} minutes" if not @hospital.current_delay.nil?
+        .clear
+    #update_waiting_time_container
+      #update_waiting_time
+        = f.text_field :minutes, :size => 3
+        = f.submit :value => "Update"
+        .clear
+    .clear
+
   #last_updated
     = "Last updated #{Integer((Time.now - @hospital.current_delay.updated_at)/60)} minutes ago"  if not @hospital.current_delay.nil?
