@@ -1,0 +1,17 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@user, :as => :post, :url => update_role_user_path(@user)) do |f| %>
+    <%= f.label :roles %><br />
+    <%= f.select :id, Role.all.collect {|role| [ role.name, role.id ] } %>
+    <%= f.submit %>
+<% end %>
