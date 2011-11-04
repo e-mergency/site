@@ -24,4 +24,19 @@ class NHSChoicesAPITest < ActiveSupport::TestCase
     assert(overview_urls.include? "71591")
     assert_equal overview_urls["71591"], "http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/71591/overview.xml?apikey=NOCRIYLM"
   end
+
+  test "get full overview for location 71591" do
+    scraper = NHSChoicesAPI::Scraper.new
+    overview = scraper.get_hospital_overview(71591)
+
+    assert_equal 71591, overview['id']
+    assert_equal "http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/71591/overview.xml?apikey=NOCRIYLM", overview['url']
+    assert_equal 'Huddersfield Medical Services HQ', overview['name']
+    assert_equal 'NL401', overview['odsCode']
+    assert_equal 'HD7 5AB', overview['postcode']
+    assert_equal '414100', overview['coordinates']['northing']
+    assert_equal '408100', overview['coordinates']['easting']
+    assert_equal '53.6233761079265', overview['coordinates']['latitude']
+    assert_equal '-1.87900971515463', overview['coordinates']['longitude']
+  end
 end

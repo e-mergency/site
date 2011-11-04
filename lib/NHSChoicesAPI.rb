@@ -8,6 +8,33 @@ module NHSChoicesAPI
   API_URL = 'http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/'
   
   class Scraper
+    # Get the available overview details for a given location ID
+    def get_hospital_overview(id = nil)
+      return {} if id == nil
+
+      url = make_hospital_overview_url id
+
+      doc = Nokogiri::XML(open(url))
+      doc.remove_namespaces!
+      root = '//feed/entry/content/overview/'
+      geo = 'geographicCoordinates/'
+
+      overview = {
+        'id' => id,
+        'url' => url,
+        'updated' => Time.parse(doc.xpath('//feed/entry/updated').text),
+        'name' => doc.xpath(root + 'name').text,
+        'odsCode' => doc.xpath(root + 'odsCode').text,
+        'postcode' => doc.xpath(root + 'address/postcode').text,
+        'coordinates' => {
+          'northing' => doc.xpath(root + geo + 'northing').text,
+          'easting' => doc.xpath(root + geo + 'easting').text,
+          'latitude' => doc.xpath(root + geo + 'latitude').text,
+          'longitude' => doc.xpath(root + geo + 'longitude').text
+        }
+      }
+    end
+
     # Get an array of location overview urls. Memoized after first call.
     def get_hospital_overview_urls
       @overview_urls ||= get_hospital_overview_urls_from_server
@@ -21,13 +48,18 @@ module NHSChoicesAPI
     # All methods past this point will not be publicly available
     private
 
+    def make_hospital_overview_url(id = nil)
+      return nil if id == nil
+      return NHSChoicesAPI::API_URL + id.to_s + '/overview.xml' + '?apikey=' + NHSChoicesAPI::NHSAPIKEY
+    end
+    
     # Build up the URLs for gathering individual overviews for locations
     def get_hospital_overview_urls_from_server
       overview_urls = {}
       ids = get_hospital_ids
 
       ids.each do |id|
-        url = NHSChoicesAPI::API_URL + id + '/overview.xml' + '?apikey=' + NHSChoicesAPI::NHSAPIKEY
+        url = make_hospital_overview_url id
         overview_urls[id] = url
       end
 
