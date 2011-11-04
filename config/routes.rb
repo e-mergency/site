@@ -73,5 +73,4 @@ EMergency::Application.routes.draw do
     end
   end
 
-  match 'map' => "hospitals#map"
 end
