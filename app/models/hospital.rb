@@ -44,7 +44,7 @@ class Hospital < ActiveRecord::Base
   end
 
   def current_delay
-    self.delays.first
+    self.delays.first or Delay.new
   end
 
   ### Class methods  ###
@@ -64,6 +64,14 @@ class Hospital < ActiveRecord::Base
     x = (Hospital.to_rad(lon2-lon1)) * Math.cos((Hospital.to_rad(lat1+lat2))/2)
     y = Hospital.to_rad(lat2-lat1)
     d = Math.sqrt(x*x + y*y) * earth_radius
+  end
+
+  def gmaps4rails_infowindow
+    "#{self.name} is currently delayed by #{self.current_delay.minutes} minutes (last updated: #{self.current_delay.created_at})"
+  end
+
+  def gmaps4rails_title
+    "#{self.name}"
   end
 
   def self.gmaps4rails_address

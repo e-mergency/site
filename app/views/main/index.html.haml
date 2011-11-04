@@ -1,8 +1,9 @@
 - content_for :javascript_includes do
   =# javascript_include_tag "cashimpactindex.js"
 
-#map-canvas
-  %img{:id => "gmapStatic", :src => 'http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=600x500&maptype=roadmap&sensor=false', :width => 600, :height => 500}
+-# Don't load the CSS
+= gmaps4rails(@json, false)
+
 #hospital-list
   .header
     %a.sort-option{:href=>'#'} Agony
