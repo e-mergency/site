@@ -21,10 +21,10 @@ module NHSChoicesAPI
 
       overview = {
         'id' => id,
-        'url' => url,
+        'apiurl' => url,
         'updated' => Time.parse(doc.xpath('//feed/entry/updated').text),
         'name' => doc.xpath(root + 'name').text,
-        'odsCode' => doc.xpath(root + 'odsCode').text,
+        'odscode' => doc.xpath(root + 'odsCode').text,
         'postcode' => doc.xpath(root + 'address/postcode').text,
         'coordinates' => {
           'northing' => doc.xpath(root + geo + 'northing').text,
