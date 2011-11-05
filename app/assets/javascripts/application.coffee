@@ -1,6 +1,6 @@
 # This is how we require other JS deps!
-//= require rails
-//= require plugins
+#= require rails
+#= require plugins
 
 @reloadGMapTimer = undefined
 
@@ -21,6 +21,15 @@ fitMapToWindow = ->
   clearTimeout reloadGMapTimer
   @reloadGMapTimer = setTimeout(reloadGMap(), 1000)
 
+initialize = ->
+  latlng =  new google.maps.LatLng(-34.397, 150.644)
+  myOptions =
+    zoom: 8,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
 $(document).ready ->
-  fitMapToWindow()
-  $(window).resize fitMapToWindow
+  initialize()
+  # fitMapToWindow()
+  # $(window).resize fitMapToWindow
