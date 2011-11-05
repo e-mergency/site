@@ -3,6 +3,7 @@
 #= require plugins
 
 @reloadGMapTimer = undefined
+@map = undefined
 
 reloadGMap = ->
   console.log "reloading Google map"
@@ -23,13 +24,30 @@ fitMapToWindow = ->
 
 initialize = ->
   latlng =  new google.maps.LatLng(-34.397, 150.644)
+  
   myOptions =
-    zoom: 8,
-    center: latlng,
+    zoom: 16
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+  @map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+trygeolocation = ->
+  if navigator.geolocation
+      navigator.geolocation.getCurrentPosition ((position) ->
+        pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        infowindow = new google.maps.InfoWindow(
+          map: map
+          position: pos
+          content: "Location found using HTML5."
+        )
+        @map.setCenter pos
+      ), ->
+        handleNoGeolocation true
+    else
+      handleNoGeolocation false
 
 $(document).ready ->
-  initialize()
+    initialize()
+    trygeolocation()
   # fitMapToWindow()
   # $(window).resize fitMapToWindow
