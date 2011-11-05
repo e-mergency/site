@@ -11,7 +11,10 @@ module NHSChoicesAPI
     # Get the available overview details for a given location ID
     def get_hospital_overview(id = nil)
       return nil if id.equal? nil
-      return nil if (id.instance_of? Fixnum).equal? false
+
+      # Check we've been given some kind of number
+      id = id.to_i
+      return nil if id.equal? 0
 
       url = make_hospital_overview_url id
 
