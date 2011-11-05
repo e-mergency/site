@@ -1,6 +1,7 @@
 # This is how we require other JS deps!
 #= require rails
-#= require plugins
+#= require log_plugin
+#= require facebox
 
 @reloadGMapTimer = undefined
 @map = undefined
@@ -63,5 +64,11 @@ handleNoGeolocation = (errorFlag) ->
 $(document).ready ->
     initialize()
     trygeolocation()
+    
+    # Facebox
+    $.facebox.settings.closeImage = '/assets/facebox/closelabel.png'
+    $.facebox.settings.loadingImage = '/assets/facebox/loading.gif'
+    $('a[rel*=facebox]').facebox()
+    
   # fitMapToWindow()
   # $(window).resize fitMapToWindow

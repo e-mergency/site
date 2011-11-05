@@ -1,9 +1,20 @@
-#= require reset
+#= require facebox
+#= require html5-boilerplate
 
 /* Core styles for body/containers */
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
 #container{ width: 100%; height: 100% }
 #main{ width: 100%; height: 100% }
+
+
+/* Fonts */
+body, select, input, textarea {
+    color: #444;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-variant: normal;
+    font-weight: 300;
+}
 
 #map_canvas { height: 100% }
