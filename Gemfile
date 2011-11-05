@@ -45,9 +45,6 @@ end
 #Use JQuery not prototype
 gem 'jquery-rails'
 
-#Google maps
-gem 'gmaps4rails'
-
 #Gems required for user authentication
 gem 'devise'
 gem 'cancan'
