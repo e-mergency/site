@@ -1,3 +1,7 @@
+# This is how we require other JS deps!
+//= require rails
+//= require plugins
+
 @reloadGMapTimer = undefined
 
 reloadGMap = ->
