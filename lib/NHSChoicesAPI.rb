@@ -18,7 +18,17 @@ module NHSChoicesAPI
 
       url = make_hospital_overview_url id
 
-      doc = Nokogiri::XML(open(url))
+      begin
+        doc = Nokogiri::XML(open(url))
+      rescue => e
+        case e
+        when OpenURI::HTTPError
+          return nil
+        when SocketError
+          return nil
+        end
+      end
+
       doc.remove_namespaces!
       root = '//feed/entry/content/overview/'
       geo = 'geographicCoordinates/'
