@@ -10,7 +10,8 @@ module NHSChoicesAPI
   class Scraper
     # Get the available overview details for a given location ID
     def get_hospital_overview(id = nil)
-      return {} if id == nil
+      return nil if id.equal? nil
+      return nil if (id.instance_of? Fixnum).equal? false
 
       url = make_hospital_overview_url id
 
@@ -49,7 +50,7 @@ module NHSChoicesAPI
     private
 
     def make_hospital_overview_url(id = nil)
-      return nil if id == nil
+      return nil if id.equal? nil
       return NHSChoicesAPI::API_URL + id.to_s + '/overview.xml' + '?apikey=' + NHSChoicesAPI::NHSAPIKEY
     end
     

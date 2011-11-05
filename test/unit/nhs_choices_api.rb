@@ -25,6 +25,13 @@ class NHSChoicesAPITest < ActiveSupport::TestCase
     assert_equal overview_urls["71591"], "http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/71591/overview.xml?apikey=NOCRIYLM"
   end
 
+  test "bad overview input fails" do
+    scraper = NHSChoicesAPI::Scraper.new
+
+    assert_nil scraper.get_hospital_overview
+    assert_nil scraper.get_hospital_overview("asdf")
+  end
+
   test "get full overview for location 71591" do
     scraper = NHSChoicesAPI::Scraper.new
     overview = scraper.get_hospital_overview(71591)
