@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-EMergency::Application.config.session_store :cookie_store, :key => '_e-mergency_session'
+EMergency::Application.config.session_store :cookie_store, key: '_e_mergency_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

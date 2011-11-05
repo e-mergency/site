@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '~> 3.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -53,4 +53,6 @@ gem 'cancan'
 gem "compass", ">= 0.11.5"
 gem "haml"
 gem 'sass'
+gem 'coffee-script'
+gem 'uglifier'
 gem "html5-boilerplate"
