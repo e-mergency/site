@@ -46,6 +46,20 @@ trygeolocation = ->
     else
       handleNoGeolocation false
 
+handleNoGeolocation = (errorFlag) ->
+  if errorFlag
+    content = "Error: The Geolocation service failed."
+  else
+    content = "Error: Your browser doesn't support geolocation."
+  options =
+    map: map
+    position: new google.maps.LatLng(54.851562,-3.977137)
+    content: content
+
+  infowindow = new google.maps.InfoWindow(options)
+  map.setCenter options.position
+  map.setZoom(6)
+
 $(document).ready ->
     initialize()
     trygeolocation()
