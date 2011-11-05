@@ -1,6 +1,4 @@
 class Hospital < ActiveRecord::Base
-
-  acts_as_gmappable :process_geocoding => false
   has_many :delays
   has_many :users
 
@@ -65,17 +63,4 @@ class Hospital < ActiveRecord::Base
     y = Hospital.to_rad(lat2-lat1)
     d = Math.sqrt(x*x + y*y) * earth_radius
   end
-
-  def gmaps4rails_infowindow
-    "#{self.name} is currently delayed by #{self.current_delay.minutes} minutes (last updated: #{self.current_delay.created_at})"
-  end
-
-  def gmaps4rails_title
-    "#{self.name}"
-  end
-
-  def self.gmaps4rails_address
-    "#{self.longitude},#{self.latitude}"
-  end
-
 end
