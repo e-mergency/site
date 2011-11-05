@@ -22,12 +22,12 @@ class HospitalTest < ActiveSupport::TestCase
     hospital = Hospital.new :name => "Test", :longitude => 181.0, :latitude => 0.0
     assert !hospital.valid?
 
-    hospital = Hospital.new :name => "Test", :longitude => 18.0, :latitude => 90.0
+    hospital = Hospital.new :name => "Test", :odscode => "FOO123", :longitude => 18.0, :latitude => 90.0
     assert hospital.valid?
     assert hospital.save
 
-    hospital = Hospital.new :name => "Test", :longitude => 0.0, :latitude => 0.0
-    assert !hospital.save # Hospital with name test already exists
+    hospital = Hospital.new :name => "Test", :odscode => "FOO123", :longitude => 0.0, :latitude => 0.0
+    assert !hospital.save # Hospital with that odscode already exists
   end
 
   test "distance" do

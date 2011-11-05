@@ -3,8 +3,8 @@ class Hospital < ActiveRecord::Base
   has_many :users
 
   validates_presence_of :latitude, :longitude, :name
-  validates_uniqueness_of :name
-    
+  validates_uniqueness_of :odscode
+
   validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
   validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
 
@@ -26,12 +26,12 @@ class Hospital < ActiveRecord::Base
     # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
     delta_max_lon = Hospital.to_deg(Float(max_distance)/earth_radius_at_lat)
     delta_max_lat = Hospital.to_deg(Float(max_distance)/earth_radius)
-    
-    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat)) 
+
+    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat))
 
     # Remove the hospitals with distance > max_distance
     hospitals = []
-    hospitals_bb.each do |hospital| 
+    hospitals_bb.each do |hospital|
       hospital.distance = hospital.compute_distance(lat, lon)
       if hospital.distance <= max_distance
         hospitals.push(hospital)
