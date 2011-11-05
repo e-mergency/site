@@ -50,10 +50,8 @@ gem 'devise'
 gem 'cancan'
 
 #Gems required for HTML5 boilerplate and associated functionality
-gem "compass", ">= 0.11.5"
 gem "haml"
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
 gem 'therubyracer-heroku', '0.8.1.pre3'
-gem "html5-boilerplate"
