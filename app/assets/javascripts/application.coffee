@@ -36,11 +36,8 @@ trygeolocation = ->
   if navigator.geolocation
       navigator.geolocation.getCurrentPosition ((position) ->
         pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-        infowindow = new google.maps.InfoWindow(
-          map: map
-          position: pos
-          content: "Location found using HTML5."
-        )
+        $("#geo_location_message").text("Location successfully found using HTML5.")
+        jQuery.facebox(div : '#geo_location_message')
         @map.setCenter pos
       ), ->
         handleNoGeolocation true
@@ -52,13 +49,9 @@ handleNoGeolocation = (errorFlag) ->
     content = "Error: The Geolocation service failed."
   else
     content = "Error: Your browser doesn't support geolocation."
-  options =
-    map: map
-    position: new google.maps.LatLng(54.851562,-3.977137)
-    content: content
-
-  infowindow = new google.maps.InfoWindow(options)
-  map.setCenter options.position
+  $("#geo_location_message").text(content)
+  jQuery.facebox(div : '#geo_location_message')
+  map.setCenter (new google.maps.LatLng(54.851562,-3.977137))
   map.setZoom(6)
 
 $(document).ready ->
