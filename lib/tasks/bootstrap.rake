@@ -1,3 +1,5 @@
+require 'json'
+
 namespace :bootstrap do
 
   desc "Creates the admin users"
@@ -20,7 +22,26 @@ namespace :bootstrap do
     end
   end
 
-  desc "Run all bootstrapping tasks"                                                                                                                                          
-  task :all => [:admin_users]
+  desc "Imports hospitals from NHS Choices"
+  task :import_hospitals => :environment do
+    json = JSON.parse(File.read('lib/locations.json'))
+    json.each do |j|
+      j = j.second
+      Hospital.create( {
+        'source_uri' => j['apiurl'],
+        'name'       => j['name'],
+        'updated'    => j['updated'],
+        'odscode'    => j['odscode'],
+        'postcode'   => j['postcode'],
+        'northing'   => j['coordinates']['northing'],
+        'easting'    => j['coordinates']['easting'],
+        'longitude'  => j['coordinates']['longitude'],
+        'latitude'   => j['coordinates']['latitude']
+      } )
+    end
+  end
+
+  desc "Run all bootstrapping tasks"
+  task :all => [:admin_users, :import_hospitals]
 
 end
