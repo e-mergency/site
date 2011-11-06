@@ -23,8 +23,8 @@
     setMarker: (m) ->
       @marker = m
 
-    getMarker: ->
-      @marker
+    clearMarker: ->
+      @marker.setMap(null)
 
     hash: ->
       # Memoize the return value! If this class gets updated,
