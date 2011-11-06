@@ -35,7 +35,12 @@ parseHospitalJSON = (hospitalJsonObjects, map) ->
     hospital = new EMG.Location(hospitalJsonObject)
     placer.placeOnMap(map, hospital)
 
+resizeContentToWindow = (event) -> 
+  log "Resize content to window"
+  $('#main').height($(window).height() - 80)
+
 $(document).ready ->
+  $(window).resize resizeContentToWindow
   setupFacebox()
 
   g = new EMG.Geolocation

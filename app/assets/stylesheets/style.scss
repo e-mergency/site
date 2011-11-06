@@ -4,8 +4,9 @@
 /* Core styles for body/containers */
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
-#container{ width: 100%; height: 100% }
-#main{ width: 100%; height: 100% }
+#container{ width: 100%; height: 100%; position: relative}
+#main{ width: 100%; height: 100%; position: relative;  margin-bottom: -80px}
+#wrapper{ width: 100%; height: 100%; position: relative}
 
 
 /* Fonts */
@@ -17,4 +18,22 @@ body, select, input, textarea {
     font-weight: 300;
 }
 
-#map_canvas { height: 100% }
+/* Fluid Layout */
+#header{min-height: 80px;}
+#wrapper{float:left;width:100%;margin-left:-200px;}
+#map_canvas{float:left;width:100%}
+#sidebar{float:right;width:200px;margin: 0;}
+#footer{clear:both;width:100%}
+
+/* Fluid Styles */
+#header h1{height:80px;line-height:80px;margin:0;padding-left:10px;background: #EEE;color: #79B30B}
+#map_canvas p{line-height:1.4}
+#sidebar{background:#B9CAFF}
+#footer{background: #333;color: #FFF}
+#footer p{margin:0;padding:5px 10px}
+#sidebar{
+    float: right;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
