@@ -3,25 +3,7 @@
 #= require log_plugin
 #= require facebox
 
-@reloadGMapTimer = undefined
 @map = undefined
-
-reloadGMap = ->
-  console.log "reloading Google map"
-  mapCanvas = $("#map-canvas")
-  mapImage = $("gmapStatic")
-  newGmapImage = "http://maps.googleapis.com/maps/api/staticmap?center=SW61SH,London&zoom=14&size=" + mapImage.width() + "x" + mapImage.height() + "&maptype=roadmap&sensor=false"
-  mapImage.attr "src", newGmapImage
-
-fitMapToWindow = ->
-  mapCanvas = $("#map-canvas")
-  hospitalList = $("#hospital-list")
-  compensation = 2
-  mapImage = $("#gmapStatic")
-  mapCanvas.width $(window).width() - hospitalList.width() - compensation
-  mapImage.width mapCanvas.width()
-  clearTimeout reloadGMapTimer
-  @reloadGMapTimer = setTimeout(reloadGMap(), 1000)
 
 initialize = ->
   latlng =  new google.maps.LatLng(-34.397, 150.644)
@@ -62,6 +44,3 @@ $(document).ready ->
     $.facebox.settings.closeImage = '/assets/facebox/closelabel.png'
     $.facebox.settings.loadingImage = '/assets/facebox/loading.gif'
     $('a[rel*=facebox]').facebox()
-    
-  # fitMapToWindow()
-  # $(window).resize fitMapToWindow
