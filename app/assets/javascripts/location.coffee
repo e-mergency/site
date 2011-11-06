@@ -6,6 +6,7 @@
       @name = json.name
       @odscode = json.odscode
       @hashcode = 0
+      @marker = false
 
     getLocation: ->
       return {
@@ -18,6 +19,12 @@
 
     getOdsCode: ->
       @odscode
+
+    setMarker: (m) ->
+      @marker = m
+
+    getMarker: ->
+      @marker
 
     hash: ->
       # Memoize the return value! If this class gets updated,
