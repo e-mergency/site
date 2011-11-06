@@ -17,11 +17,14 @@ setupFacebox = ->
   $.facebox.settings.loadingImage = '/assets/facebox/loading.gif'
   $('a[rel*=facebox]').facebox()
 
-loadHospitals = (map) ->
-  return getHospitalJSON(parseHospitalJSON, map)
+loadHospitals = (map, sort = "none") ->
+  for l in EMG.locations
+    l.clearMarker()
+    EMG.locations = []
+  return getHospitalJSON(parseHospitalJSON, map, sort)
 
-getHospitalJSON = (afterFunction, map) ->
-  $.ajax '/hospitals/list_all',
+getHospitalJSON = (afterFunction, map, sort) ->
+  $.ajax '/hospitals/json_list/sort/' + sort,
     type: 'GET'
     dataType: 'json'
     error: (jqXHR, textStatus, errorThrown) ->
@@ -39,11 +42,21 @@ parseHospitalJSON = (hospitalJsonObjects, map) ->
 resizeContentToWindow = ->
   $('#main').height($(window).height() - 80)
 
+bindFilterButtons = ->
+  $('#hospital_filter_button_distance').bind 'click', (event) =>
+    loadHospitals(@map)
+  $('#hospital_filter_button_agony').bind 'click', (event) =>
+    loadHospitals(@map, 'agony')
+  $('#hospital_filter_button_wait').bind 'click', (event) =>
+    loadHospitals(@map, 'wait')
+
 $(document).ready ->  
   resizeContentToWindow()
   $(window).resize resizeContentToWindow
   
   setupFacebox()
+  
+  bindFilterButtons();
 
   g = new EMG.Geolocation
   g.initialize()
