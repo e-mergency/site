@@ -30,7 +30,7 @@
       @marker.setMap(null)
 
     clearListEntry: ->
-      $(@listElement).remove();
+      $('#' + @hascode).remove();
     
     remove: ->
       this.clearMarker()

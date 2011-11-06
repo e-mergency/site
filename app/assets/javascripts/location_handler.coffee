@@ -15,7 +15,7 @@
 
     paintLocationToSidebar: (location) ->
       name = location.getName()
-      location.setListElement($("ul#hospital_list").append("<li>" + name + "</li>"))
+      $("ul#hospital_list").append("<li id='" + location.hashcode + "'>" + name + "</li>")
 
     # Repaints both the sidebar using the list that we have
     repaintLocationsSidebar: ->

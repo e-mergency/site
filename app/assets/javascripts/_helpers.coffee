@@ -9,3 +9,4 @@
 
 @module "EMG", ->
   @locations = []
+  @map = undefined
