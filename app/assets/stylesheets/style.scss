@@ -36,6 +36,7 @@ body, select, input, textarea {
     height: 100%;
     position: absolute;
     right: 0;
+    overflow: scroll;
 }
 
 #hospital_list{
