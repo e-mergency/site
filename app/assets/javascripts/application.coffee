@@ -19,7 +19,7 @@ setupFacebox = ->
 
 loadHospitals = (map, sort = "none") ->
   for l in EMG.locations
-    l.clearMarker()
+    l.remove()
     EMG.locations = []
   return getHospitalJSON(parseHospitalJSON, map, sort)
 

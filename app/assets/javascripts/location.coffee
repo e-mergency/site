@@ -22,9 +22,19 @@
 
     setMarker: (m) ->
       @marker = m
+      
+    setListElement: (le) ->
+      @listElement = le
 
     clearMarker: ->
       @marker.setMap(null)
+
+    clearListEntry: ->
+      $(@listElement).remove();
+    
+    remove: ->
+      this.clearMarker()
+      this.clearListEntry()
 
     hash: ->
       # Memoize the return value! If this class gets updated,
