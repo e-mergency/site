@@ -40,18 +40,23 @@ group :development, :test do
   gem "ruby-debug19"
 
   gem "heroku"
+
+  gem "guard"
+  gem "guard-coffeescript"
 end
 
-#Use JQuery not prototype
+# Use JQuery not prototype
 gem 'jquery-rails'
 
-#Gems required for user authentication
+# Gems required for user authentication
 gem 'devise'
 gem 'cancan'
 
-#Gems required for HTML5 boilerplate and associated functionality
+# Make web-editing smoother
 gem "haml"
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
+
+# This is our JS executor if we don't have Node.js or similar
 gem 'therubyracer-heroku', '0.8.1.pre3'

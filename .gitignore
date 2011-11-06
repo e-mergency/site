@@ -23,3 +23,7 @@ tmp/
 # Ignore css files and sass temp files
 *.css
 .sass-cache/
+
+# Guard compile points
+public/javascripts/compiled
+spec/javascripts/compiled
