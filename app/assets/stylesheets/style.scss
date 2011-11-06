@@ -20,13 +20,13 @@ body, select, input, textarea {
 
 /* Fluid Layout */
 #header{min-height: 80px;}
-#wrapper{float:left;width:100%;margin-left:-200px;}
+#wrapper{float:left;width:100%;margin-left:-300px;}
 #map_canvas{float:left;width:100%}
-#sidebar{float:right;width:200px;margin: 0;}
+#sidebar{float:right;width:300px;margin: 0;}
 #footer{clear:both;width:100%}
 
-/* Fluid Styles */
-#header h1{height:80px;line-height:80px;margin:0;padding-left:10px;background: #EEE;color: #79B30B}
+/* Fluid Layout Styles */
+#header{height:80px; background: hsla(207, 45%, 55%, 1);}
 #map_canvas p{line-height:1.4}
 #sidebar{background:#FFF}
 #footer{background: #333;color: #FFF}
@@ -38,5 +38,22 @@ body, select, input, textarea {
     right: 0;
 }
 
+#hospital_list{
+    padding: 15px;
+
+    ul{
+        margin: 0px;
+        padding: 0px;
+        border-top: 1px #E5E5E5 solid;
+        li{
+            height: 40px;
+            list-style: none;
+            background-color: hsla(0, 0%, 95%, .85);
+            display: block;
+            margin: 0px;
+            border-bottom: 1px #E5E5E5 solid;
+        }
+    }
+}
 /* Sidebar */
 .highlight {font-weight: bold}
