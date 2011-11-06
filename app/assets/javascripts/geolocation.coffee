@@ -1,4 +1,4 @@
-@module "emg", ->
+@module "EMG", ->
     class @Geolocation
         initialize: ->
             this.trygeolocation()
