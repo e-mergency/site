@@ -18,6 +18,8 @@ body, select, input, textarea {
     font-weight: 300;
 }
 
+.clear{clear:both}
+
 /* Fluid Layout */
 #header{min-height: 80px;}
 #wrapper{float:left;width:100%;margin-left:-300px;}
@@ -39,7 +41,6 @@ body, select, input, textarea {
     overflow: scroll;
 }
 
-.clear{clear:both}
 #hospital_filters{
     padding: 15px;
     .hospital_filter_button{
@@ -62,12 +63,12 @@ body, select, input, textarea {
     border-top: 1px #E5E5E5 solid;
 
     li{
-        height: 40px;
         list-style: none;
         background-color: hsla(0, 0%, 95%, .85);
         display: block;
         margin: 0px;
         border-bottom: 1px #E5E5E5 solid;
+        padding: 15px;
     }
 }
 
