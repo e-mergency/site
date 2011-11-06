@@ -26,7 +26,7 @@ body, select, input, textarea {
 #footer{clear:both;width:100%}
 
 /* Fluid Layout Styles */
-#header{height:80px; background: hsla(207, 45%, 55%, 1);}
+#header{height:80px; background: hsla(207, 45%, 55%, 1)}
 #map_canvas p{line-height:1.4}
 #sidebar{background:#FFF}
 #footer{background: #333;color: #FFF}
@@ -39,9 +39,26 @@ body, select, input, textarea {
     overflow: scroll;
 }
 
-#hospital_list{
+.clear{clear:both}
+#hospital_filters{
     padding: 15px;
-    margin: 0px;
+    .hospital_filter_button{
+        float: left;
+        padding: 5px;
+        margin-right: 5px;
+        border: 1px solid #EEE;
+        
+        &:hover{
+            background: hsla(207, 45%, 55%, 1);
+            color: #FFF;
+            cursor: pointer;
+        }    
+    }
+}
+
+
+#hospital_list{
+    margin: 15px;
     border-top: 1px #E5E5E5 solid;
 
     li{
