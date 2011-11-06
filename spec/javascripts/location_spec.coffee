@@ -5,8 +5,6 @@ describe 'Location', ->
     expect(l.getLocation()).toEqual {'lat': response.latitude, 'lon': response.longitude}
 
   it 'shows the name when asked', ->
-    expected = {
-      'name': 'A location',
-    }
+    expected = {'name': 'A location'}
     l = new EMG.Location(expected)
-    expect(l.getName()).toEqual expected['name']
+    expect(l.getName()).toEqual expected.name
