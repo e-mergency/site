@@ -19,14 +19,12 @@ $(document).ready ->
   g = new emg.Geolocation
   g.initialize()
   
+  
+  
   # Temp map stuff
-  latlng =  new google.maps.LatLng(-34.397, 150.644)
-
   myOptions =
       zoom: 16
       mapTypeId: google.maps.MapTypeId.ROADMAP
-
   @map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  
   @map.setCenter (new google.maps.LatLng(54.851562,-3.977137))
   @map.setZoom(6)
