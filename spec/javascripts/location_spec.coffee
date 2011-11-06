@@ -8,3 +8,8 @@ describe 'Location', ->
     expected = {'name': 'A location'}
     l = new EMG.Location(expected)
     expect(l.getName()).toEqual expected.name
+
+  it 'shows the ods code when asked', ->
+    expected = {'odscode': 'bleh'}
+    l = new EMG.Location(expected)
+    expect(l.getOdsCode()).toEqual expected.odscode

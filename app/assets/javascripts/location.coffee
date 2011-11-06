@@ -4,6 +4,7 @@
       @lat = json.latitude
       @lon = json.longitude
       @name = json.name
+      @odscode = json.odscode
 
     getLocation: ->
       return {
@@ -13,3 +14,6 @@
 
     getName: ->
       @name
+
+    getOdsCode: ->
+      @odscode
