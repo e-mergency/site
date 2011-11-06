@@ -1,8 +1,8 @@
 @module "EMG", ->
   class @Location
     constructor: (json) ->
-      @lat = json.lat
-      @lon = json.lon
+      @lat = json.latitude
+      @lon = json.longitude
       @name = json.name
 
     getLocation: ->

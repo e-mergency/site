@@ -6,7 +6,8 @@
 
 #= require _helpers
 #= require geolocation
-#= require Hospital
+#= require location
+#= require locationplacer
 
 @map = undefined
 
@@ -29,9 +30,10 @@ getHospitalJSON = (afterFunction, map) ->
       return true
 
 parseHospitalJSON = (hospitalJsonObjects, map) ->
+  placer = new EMG.LocationPlacer()
   for hospitalJsonObject in hospitalJsonObjects
-    hospital = new EMG.Hospital(hospitalJsonObject)
-    hospital.placeOnMap(map)
+    hospital = new EMG.Location(hospitalJsonObject)
+    placer.placeOnMap(map, hospital)
 
 $(document).ready ->
   setupFacebox()
