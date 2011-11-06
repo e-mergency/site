@@ -7,6 +7,7 @@
 #= require _helpers
 #= require geolocation
 #= require location
+#= require location_handler
 #= require locationplacer
 
 @map = undefined

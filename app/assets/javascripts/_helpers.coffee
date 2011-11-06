@@ -6,3 +6,6 @@
     space.module names, fn
   else
     fn.call space
+
+@module "EMG", ->
+  @locations = []
