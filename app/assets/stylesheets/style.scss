@@ -36,24 +36,23 @@ body, select, input, textarea {
     height: 100%;
     position: absolute;
     right: 0;
+    overflow: scroll;
 }
 
 #hospital_list{
     padding: 15px;
+    margin: 0px;
+    border-top: 1px #E5E5E5 solid;
 
-    ul{
+    li{
+        height: 40px;
+        list-style: none;
+        background-color: hsla(0, 0%, 95%, .85);
+        display: block;
         margin: 0px;
-        padding: 0px;
-        border-top: 1px #E5E5E5 solid;
-        li{
-            height: 40px;
-            list-style: none;
-            background-color: hsla(0, 0%, 95%, .85);
-            display: block;
-            margin: 0px;
-            border-bottom: 1px #E5E5E5 solid;
-        }
+        border-bottom: 1px #E5E5E5 solid;
     }
 }
+
 /* Sidebar */
 .highlight {font-weight: bold}
