@@ -12,3 +12,13 @@
       # Not been able to find this marker in our locations array!
       # Make sure we return false to our caller
       return false
+
+    paintLocationToSidebar: (location) ->
+      name = location.getName()
+      $("ul#hospital_list").append("<li>" + name + "</li>")
+
+    # Repaints both the sidebar using the list that we have
+    repaintLocationsSidebar: ->
+      $("ul#hospital_list").empty()
+      for location in EMG.locations
+        this.paintLocationToSidebar(location)
