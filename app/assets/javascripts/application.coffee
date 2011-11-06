@@ -6,7 +6,7 @@
 
 #= require _helpers
 #= require geolocation
-#= require NHSLocation
+#= require Hospital
 
 @map = undefined
 
