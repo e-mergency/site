@@ -21,4 +21,4 @@
     highlight: ->
       # TODO: Complete this call to set the CSS to highlight
       # for the relevant item in our list.
-      log "TODO: It highlights!"
+      log "TODO: Highlight me with CSS! [lat: " + @lat + ", lon:" + @lon + " ]"
