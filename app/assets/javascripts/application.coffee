@@ -4,7 +4,7 @@
 #= require log_plugin
 #= require facebox
 
-#= require module_helper
+#= require _helpers
 #= require geolocation
 #= require NHSLocation
 
@@ -35,10 +35,10 @@ parseHospitalJSON = (hospitalJsonObjects, map) ->
 
 $(document).ready ->
   setupFacebox()
-  
+
   g = new EMG.Geolocation
   g.initialize()
-  
+
   # Temp map stuff
   myOptions =
     zoom: 6
