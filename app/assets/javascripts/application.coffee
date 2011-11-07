@@ -7,7 +7,7 @@
 #= require facebox
 
 #= require _helpers
-#= require geolocation
+#= require geolocation_handler
 #= require location
 #= require location_handler
 #= require location_placer
