@@ -7,14 +7,13 @@ class HospitalsController < ApplicationController
   
   def json_list
     case params[:sort]
-    when "agony"
+    when "agony" # Our custom ranking algorithm
       @hospitals =  Hospital.find(:all, :limit => 20).reverse[0..9]
-    when "wait"
+    when "wait" # By wait time
       @hospitals =  Hospital.find(:all, :limit => 30).reverse[0..9]
-    else
+    else # By distance
       @hospitals = Hospital.find(:all, :limit => 10)
     end
-    puts @hospitals.inspect
     render :json => @hospitals
   end
 end
