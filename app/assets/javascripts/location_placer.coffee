@@ -9,10 +9,6 @@
             map: map
             title: "Hello World!"
         )
-        log 'Map coming...'
-        log map
-        log location
-        log marker
 
         # Push the provided location object onto our global
         # list for storage. Also add it to the sidebar.

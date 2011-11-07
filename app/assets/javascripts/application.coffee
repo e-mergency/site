@@ -2,6 +2,8 @@
 
 #= require rails
 #= require log_plugin
+#= require dotimeout_plugin
+#= require jspostcode
 #= require facebox
 
 #= require _helpers
@@ -14,6 +16,11 @@ setupFacebox = ->
   $.facebox.settings.closeImage = '/assets/facebox/closelabel.png'
   $.facebox.settings.loadingImage = '/assets/facebox/loading.gif'
   $('a[rel*=facebox]').facebox()
+  $(document).bind('loading.facebox', ->
+    e = $('#facebox .content').first()
+    e.removeAttr('class')
+    e.addClass('content')
+  )
 
 loadHospitals = (map = EMG.map, sort = "none") ->
   for l in EMG.locations
@@ -56,15 +63,15 @@ $(document).ready ->
   
   bindFilterButtons();
 
-  g = new EMG.Geolocation
-  g.initialize()
-
   # Temp map stuff
   myOptions =
     zoom: 6
     mapTypeId: google.maps.MapTypeId.ROADMAP
   EMG.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   EMG.map.setCenter (new google.maps.LatLng(54.851562,-3.977137))
+  
+  g = new EMG.GeolocationHandler()
+  g.locateUser()
 
   if !loadHospitals(@map)
     log "Failed to load hospital data"
