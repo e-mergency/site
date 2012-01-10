@@ -158,11 +158,22 @@ body, select, input, textarea {
             display: block;
             height: 40px;
             padding-right: 15px;
-            width: 300px;
+            width: 360px;
             
             #current_waiting_time{
                 float:right;
                 padding-top: 8px;
+
+                #delay_minutes{
+                    font-size: 28px;
+                    border: 2px solid #EEE;
+                    background-color: #E5FAFF;
+                    height: 40px;
+                    padding: 0px;
+                    margin: 0px;
+                    margin-right: 10px;
+                }
+
             }
         }
         
@@ -171,22 +182,11 @@ body, select, input, textarea {
             display: block;
             height: 40px;
             padding-left: 15px;
-            width: 260px;
+            width: 200px;
             
             #update_waiting_time{
                 float:left;
                 
-                #delay_minutes{
-                    font-size: 28px;
-                    border: 2px solid #EEE;
-                    background-color: #E5FAFF;
-                    height: 40px;
-                    padding: 0px;
-                    margin: 0px;
-                    float:left;
-                    margin-right: 10px;
-                }
-
                 #delay_submit{
                     padding: 0px;
                     margin: 0px;

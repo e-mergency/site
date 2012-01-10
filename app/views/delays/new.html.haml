@@ -9,11 +9,12 @@
       .clear
     #current_waiting_time_container
       #current_waiting_time
-        = "Waiting Time: #{@hospital.current_delay.minutes} minutes" if not @hospital.current_delay.nil?
+        = f.label :minutes, 'Waiting Time'
+        = f.text_field :minutes, :size => 3, :value => @hospital.current_delay.minutes if not @hospital.current_delay.nil? 
+        = "minutes"
         .clear
     #update_waiting_time_container
       #update_waiting_time
-        = f.text_field :minutes, :size => 3
         = f.submit :value => "Update"
         .clear
     .clear
