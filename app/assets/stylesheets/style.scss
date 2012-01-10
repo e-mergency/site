@@ -124,3 +124,104 @@ body, select, input, textarea {
 #facebox .content.postcode_form{
     width: 250px;
 }
+
+/* Hospital Delay Time Updates */
+#update_hospital_delay_time{
+    width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    background-color: #FFF;
+    border: 2px solid #EEE;
+    font-size: 20px;
+
+   h2{
+        font-size: 20px;
+        margin: 0px;
+        margin-bottom: 10px;
+        padding: 0px;
+        padding-bottom: 5px;
+        border-bottom: solid 2px #EEE;
+    }
+    #new_delay{
+        margin-bottom: 15px;
+        
+        .errors{
+            padding: 10px;
+            list-style-type:none;
+            margin: 0px;
+            margin-bottom: 10px;
+        }
+        
+        #current_waiting_time_container{
+            float:left;
+            border-right: 2px solid #EEE;
+            display: block;
+            height: 40px;
+            padding-right: 15px;
+            width: 300px;
+            
+            #current_waiting_time{
+                float:right;
+                padding-top: 8px;
+            }
+        }
+        
+        #update_waiting_time_container{
+            float:left;
+            display: block;
+            height: 40px;
+            padding-left: 15px;
+            width: 260px;
+            
+            #update_waiting_time{
+                float:left;
+                
+                #delay_minutes{
+                    font-size: 28px;
+                    border: 2px solid #EEE;
+                    background-color: #E5FAFF;
+                    height: 40px;
+                    padding: 0px;
+                    margin: 0px;
+                    float:left;
+                    margin-right: 10px;
+                }
+
+                #delay_submit{
+                    padding: 0px;
+                    margin: 0px;
+                    height: 45px;
+                    padding: 0px 10px;
+                    border: 2px solid #EEE;
+                    background-color: #DBFFB3;
+                    float:left;
+                }
+                .field_with_errors{
+                    float:left;
+                }
+            }
+        }
+    }
+
+    #last_updated{
+        text-align: center;
+        font-size: 16px;
+    }
+}
+
+.clear{
+    clear: both;
+}
+
+.notice {
+    background-color: #FEEFB3;
+    border: 2px solid #fdda4e;
+}
+
+.message {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
