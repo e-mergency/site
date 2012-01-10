@@ -1,7 +1,7 @@
 #update_hospital_delay_time
   %h2= @hospital.name
   .clear
-  - form_for([@hospital, @delay]) do |f|
+  = form_for([@hospital, @delay]) do |f|
     - if @delay.errors.any? 
       %ul.errors.failed
         - @delay.errors.full_messages.each do |msg|
