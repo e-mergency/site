@@ -19,6 +19,19 @@ class DelaysController < ApplicationController
   # GET /delays.xml
   def index
     @delays = Delay.all
+    dates = Delay.find(:all).map{|d| d.created_at.to_f}.reverse
+    start = dates[0]
+    dates2 = dates.map{|d| (d-start)/10}
+    data = [dates2, Delay.find(:all, :select => :minutes).map(&:minutes).reverse]
+    #require 'ruby-debug'
+    #debugger
+    @graph_url = Gchart.line_xy(:size => '500x300', 
+                             :title => "example title",
+#                             :bg => 'efefef',
+                             :legend => 'first data set label',
+                             :data => data,
+                             :axis_with_label => 'x,y',
+                             :axis_labels => ['Jan|July|Jan|July|Jan|6|7|8', '0|100|1|2|3|4|5|6'])
 
     respond_to do |format|
       format.html # index.html.erb
