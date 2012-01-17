@@ -4,9 +4,9 @@
     = "Hello #{current_user.email}  ("
     = link_to 'Not you?', destroy_user_session_path, :method => :delete
     = ")"
-    - if current_user.roles.length>0 and current_user.roles[0].name == 'hospital' and not current_user.hospital.nil?
+    - if current_user.roles.length>0 and (current_user.roles[0].name == 'hospital' or current_user.roles[0].name == 'admin' ) and not current_user.hospital.nil?
       = link_to "Update the waiting time of #{current_user.hospital.name}", new_hospital_delay_path(current_user.hospital) 
-    - elsif current_user.roles.length>0 and current_user.roles[0].name == 'admin'
+    - if current_user.roles.length>0 and current_user.roles[0].name == 'admin'
       = link_to "Admin interface", user_registration_path 
   - else
     = link_to 'Sign in', new_user_session_path
