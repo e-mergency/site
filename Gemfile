@@ -45,6 +45,8 @@ group :development, :test do
   gem "guard-coffeescript"
 end
 
+gem 'googlecharts'
+
 # Use JQuery not prototype
 gem 'jquery-rails'
 
