@@ -20,4 +20,4 @@
     .clear
 
   #last_updated
-    = "Last updated #{Integer((Time.now - @hospital.current_delay.updated_at)/60)} minutes ago"  if not @hospital.current_delay.nil?
+    = "Last updated #{distance_of_time_in_words(Time.now - @hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
