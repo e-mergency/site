@@ -9,7 +9,7 @@ class HospitalsController < ApplicationController
     if params[:radius]
       radius = params[:radius].to_i
     else
-      radius = 1000
+      radius = 5000
     end
     
     location = {lat: params[:lat].to_f, lon: params[:lon].to_f, radius: radius}
