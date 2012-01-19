@@ -20,6 +20,5 @@
         # location object (pushed to the EMG.locations above).
         # This is how we're going to highlight the item in the
         # list.
-        google.maps.event.addListener(marker, 'click', ->
+        google.maps.event.addListener marker, 'click', () =>
           @handler.highlight(latlon.lat, latlon.lon)
-        )

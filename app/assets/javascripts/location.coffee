@@ -7,6 +7,8 @@
       @odscode = json.odscode
       @hashcode = this.hash()
       @marker = false
+      @infowindow = new google.maps.InfoWindow
+        content: @name
 
     getLocation: ->
       return {
@@ -22,6 +24,8 @@
 
     setMarker: (m) ->
       @marker = m
+      google.maps.event.addListener @marker, 'click', () =>
+        @infowindow.open(EMG.map,@marker);
       
     setListElement: (le) ->
       @listElement = le

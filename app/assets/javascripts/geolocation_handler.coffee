@@ -4,11 +4,15 @@
       @location = {'lat': 54.851562, 'lon': -3.977137}
       @locationBeenVerified = false
     
+    getLocation: ->
+      return @location
+    
     #Initiated process of setting the user's location
     locateUser: ->
       if this.browserGeolocationEnabled()
         if this.locationVerified()
           this.centerMapOnLocation()
+          EMG.loadHospitals()
         else
           this.setLocationUsingBrowser()
       else
