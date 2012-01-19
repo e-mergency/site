@@ -22,7 +22,7 @@ setupFacebox = ->
     e.addClass('content')
   )
 
-loadHospitals = (map = EMG.map, sort = "none") ->
+EMG.loadHospitals = (map = EMG.map, sort = "none") ->
   for l in EMG.locations
     l.remove()
   EMG.locations = []
@@ -32,6 +32,7 @@ getHospitalJSON = (afterFunction, map = EMG.map, sort) ->
   $.ajax '/hospitals/json_list/sort/' + sort,
     type: 'GET'
     dataType: 'json'
+    data: EMG.geoLocationHandler.getLocation()
     error: (jqXHR, textStatus, errorThrown) ->
       return false
     success: (data, textStatus, jqXHR) ->
@@ -67,11 +68,13 @@ $(document).ready ->
   myOptions =
     zoom: 6
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  EMG.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  EMG.map.setCenter (new google.maps.LatLng(54.851562,-3.977137))
   
-  g = new EMG.GeolocationHandler()
-  g.locateUser()
-
-  if !loadHospitals(@map)
+  EMG.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
+  EMG.geoLocationHandler = new EMG.GeolocationHandler()
+  EMG.geoLocationHandler.locateUser()
+  location = EMG.geoLocationHandler.getLocation()
+  EMG.map.setCenter (new google.maps.LatLng(location.lat,location.lon))
+  
+  if !EMG.loadHospitals()
     log "Failed to load hospital data"
