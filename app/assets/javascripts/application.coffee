@@ -55,11 +55,11 @@ resizeContentToWindow = ->
 bindFilterButtons = ->
   log "ARGH"
   $('#hospital_filter_button_distance').bind 'click', (event) =>
-    loadHospitals(EMG.map)
+    EMG.loadHospitals(EMG.map)
   $('#hospital_filter_button_agony').bind 'click', (event) =>
-    loadHospitals(EMG.map, 'agony')
+    EMG.loadHospitals(EMG.map, 'agony')
   $('#hospital_filter_button_wait').bind 'click', (event) =>
-    loadHospitals(EMG.map, 'wait')
+    EMG.loadHospitals(EMG.map, 'wait')
 
 $(document).ready ->  
   resizeContentToWindow()
