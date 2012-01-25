@@ -17,4 +17,6 @@
 
 <br />
 
-<%= link_to 'New Delay', new_hospital_delay_path %>
+<% if can? :manage, @hospital %>
+  <%= link_to 'New Delay', new_hospital_delay_path %>
+<% end %>
