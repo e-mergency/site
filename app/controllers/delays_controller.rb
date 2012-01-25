@@ -19,19 +19,27 @@ class DelaysController < ApplicationController
   # GET /delays.xml
   def index
     @delays = Delay.all
-    dates = Delay.find(:all).map{|d| d.created_at.to_f}.reverse
-    start = dates[0]
-    dates2 = dates.map{|d| (d-start)/10}
-    data = [dates2, Delay.find(:all, :select => :minutes).map(&:minutes).reverse]
-    #require 'ruby-debug'
-    #debugger
+
+    nb_days = 20
+    start = nb_days.days.ago.to_f 
+    dates = [start.to_f] + Delay.all(:conditions => {:updated_at => start..0.days.ago}).map{|d| d.created_at.to_f}.reverse + [0] # We add to additional nodes at the beginning and the end of the timespan
+    dates2 = dates.map{|d| (d-start)/20}
+    delays = Delay.find(:all, :select => :minutes).map(&:minutes).reverse
+    delays2 = [delays[0]] + delays + [delays[-1]]
+    data = [dates2, delays2] 
+    wdays = ['Sun', 'Sat', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     @graph_url = Gchart.line_xy(:size => '500x300', 
-                             :title => "example title",
+                             :title => "Last weeks delay time",
 #                             :bg => 'efefef',
                              :legend => 'first data set label',
                              :data => data,
                              :axis_with_label => 'x,y',
-                             :axis_labels => ['Jan|July|Jan|July|Jan|6|7|8', '0|100|1|2|3|4|5|6'])
+                             :axis_labels => ['Mon|Tue|Wed|Thu|Fri|Sat|Sun']
+                            )
+    # We need some extra parameters for the graph axis that is not supported by Gchart...
+    @graph_url = @graph_url + "&chxt=x,y"
+
+
 
     respond_to do |format|
       format.html # index.html.erb
