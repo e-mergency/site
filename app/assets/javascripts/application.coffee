@@ -29,10 +29,14 @@ EMG.loadHospitals = (map = EMG.map, sort = "none") ->
   return getHospitalJSON(parseHospitalJSON, map, sort)
 
 getHospitalJSON = (afterFunction, map = EMG.map, sort) ->
-  $.ajax '/hospitals/json_list/sort/' + sort,
+  location = EMG.geoLocationHandler.getLocation()
+  $.ajax '/hospitals/json_list',
     type: 'GET'
     dataType: 'json'
-    data: EMG.geoLocationHandler.getLocation()
+    data:
+      lat: location.lat
+      lon: location.lon
+      sort: sort
     error: (jqXHR, textStatus, errorThrown) ->
       return false
     success: (data, textStatus, jqXHR) ->
@@ -49,6 +53,7 @@ resizeContentToWindow = ->
   $('#main').height($(window).height() - 80)
 
 bindFilterButtons = ->
+  log "ARGH"
   $('#hospital_filter_button_distance').bind 'click', (event) =>
     loadHospitals(EMG.map)
   $('#hospital_filter_button_agony').bind 'click', (event) =>
