@@ -55,10 +55,16 @@ resizeContentToWindow = ->
 bindFilterButtons = ->
   log "ARGH"
   $('#hospital_filter_button_distance').bind 'click', (event) =>
+    $('.hospital_filter_button').removeClass('active')
+    $('#hospital_filter_button_distance').addClass('active')
     EMG.loadHospitals(EMG.map)
   $('#hospital_filter_button_agony').bind 'click', (event) =>
+    $('.hospital_filter_button').removeClass('active')
+    $('#hospital_filter_button_agony').addClass('active')
     EMG.loadHospitals(EMG.map, 'agony')
   $('#hospital_filter_button_wait').bind 'click', (event) =>
+    $('.hospital_filter_button').removeClass('active')
+    $('#hospital_filter_button_wait').addClass('active')
     EMG.loadHospitals(EMG.map, 'wait')
 
 $(document).ready ->  
