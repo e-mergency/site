@@ -16,19 +16,17 @@ class Hospital < ActiveRecord::Base
     distance = Hospital.compute_distance(lat, lon, lat2, lon2)
   end
 
-  def self.find_hospitals_by_agony(lat, lon, max_distance)
-    # FIXME: replace by some smart algorithm when we have one
-    Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
-  end
-
-  def self.find_hospitals_by_distance(lat, lon, max_distance)
+  def self.find_hospitals_sorted(lat, lon, max_distance, sort)
     hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
-    hospitals.sort!{|a,b| a.distance <=> b.distance}
-  end
 
-  def self.find_hospitals_by_wait_time(lat, lon, max_distance)
-    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
-    hospitals.sort!{|a,b| a.current_delay.minutes <=> b.current_delay.minutes}
+    case sort
+    #when "agony" # Our custom ranking algorithm
+      # FIXME: replace by some smart algorithm when we have one
+    when "wait" # By wait time
+      hospitals.sort!{|a,b| a.current_delay.minutes <=> b.current_delay.minutes}
+    else # By distance
+      hospitals.sort!{|a,b| a.distance <=> b.distance}
+    end
   end
 
   def self.find_hospitals_near_latlon(lat, lon, max_distance)
