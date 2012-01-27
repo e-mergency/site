@@ -16,16 +16,15 @@ class HospitalsController < ApplicationController
     
     # Add the filtering back in when it's implemented
     
-    # case params[:sort]
-    # when "agony" # Our custom ranking algorithm
-    # @hospitals = Hospital.find_hospitals_near_latlon(location[:lat], location[:lon], location[:radius])
-    # when "wait" # By wait time
-    # @hospitals = Hospital.find_hospitals_near_latlon(location[:lat], location[:lon], location[:radius])
-    # else # By distance
-    # @hospitals = Hospital.find_hospitals_near_latlon(location[:lat], location[:lon], location[:radius])
-    # end
+    case params[:sort]
+    when "agony" # Our custom ranking algorithm
+      @hospitals = Hospital.find_hospitals_by_agony(location[:lat], location[:lon], location[:radius])
+    when "wait" # By wait time
+      @hospitals = Hospital.find_hospitals_by_wait_time(location[:lat], location[:lon], location[:radius])
+    else # By distance
+      @hospitals = Hospital.find_hospitals_by_distance(location[:lat], location[:lon], location[:radius])
+    end
 
-    @hospitals = Hospital.find_hospitals_near_latlon(location[:lat], location[:lon], location[:radius])
     render :json => @hospitals
   end
 end

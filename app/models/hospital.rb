@@ -16,6 +16,21 @@ class Hospital < ActiveRecord::Base
     distance = Hospital.compute_distance(lat, lon, lat2, lon2)
   end
 
+  def self.find_hospitals_by_agony(lat, lon, max_distance)
+    # FIXME: replace by some smart algorithm when we have one
+    Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
+  end
+
+  def self.find_hospitals_by_distance(lat, lon, max_distance)
+    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
+    hospitals.sort!{|a,b| a.distance <=> b.distance}
+  end
+
+  def self.find_hospitals_by_wait_time(lat, lon, max_distance)
+    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
+    hospitals.sort!{|a,b| a.current_delay.minutes <=> b.current_delay.minutes}
+  end
+
   def self.find_hospitals_near_latlon(lat, lon, max_distance)
     earth_radius = 6371000.0
     earth_radius_at_lat = Math.cos(Hospital.to_rad(lat))*earth_radius
