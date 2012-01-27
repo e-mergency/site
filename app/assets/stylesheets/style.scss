@@ -81,12 +81,16 @@ body, select, input, textarea {
         padding: 5px;
         margin-right: 5px;
         border: 1px solid #EEE;
+        cursor: pointer;
         
         &:hover{
             background: hsla(207, 45%, 55%, 1);
             color: #FFF;
-            cursor: pointer;
-        }    
+        }
+        &.active{
+            background: hsla(207, 45%, 55%, 1);
+            color: #FFF;
+        }
     }
 }
 
