@@ -20,8 +20,10 @@ class Hospital < ActiveRecord::Base
     hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
 
     case sort
-    #when "agony" # Our custom ranking algorithm
+    when "agony" # Our custom ranking algorithm
       # FIXME: replace by some smart algorithm when we have one
+      # Weigh delay against distance, assuming you travel 100m / min
+      hospitals.sort!{|a,b| a.current_delay.minutes*100+a.distance <=> b.current_delay.minutes*100+b.distance}
     when "wait" # By wait time
       hospitals.sort!{|a,b| a.current_delay.minutes <=> b.current_delay.minutes}
     else # By distance
