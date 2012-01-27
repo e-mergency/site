@@ -1,9 +1,6 @@
-
 <h2><%= @hospital.name %></h2>
 
-<%= require 'ruby-debug'
-debugger
-image_tag(@graph_url) %>
+<%= image_tag(@graph_url) %>
 
 <% if can? :manage, @hospital %>
   <%= link_to 'New Delay', new_hospital_delay_path %>
