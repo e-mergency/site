@@ -23,4 +23,4 @@
     = "Last updated #{distance_of_time_in_words(Time.now - @hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
 
 #centered
-  = link_to "Show delay history", hospital_delays_path(@hospital)
+  = link_to "Delay statistic", hospital_delays_path(@hospital)
