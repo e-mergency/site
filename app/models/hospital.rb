@@ -16,7 +16,7 @@ class Hospital < ActiveRecord::Base
     distance = Hospital.compute_distance(lat, lon, lat2, lon2)
   end
 
-  def self.find_hospitals_sorted(lat, lon, max_distance, sort)
+  def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results)
     hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
 
     case sort
@@ -29,6 +29,8 @@ class Hospital < ActiveRecord::Base
     else # By distance
       hospitals.sort!{|a,b| a.distance <=> b.distance}
     end
+    # Truncate to max number of results, can only do after sorting
+    hospitals[0..max_results-1]
   end
 
   def self.find_hospitals_near_latlon(lat, lon, max_distance)

@@ -6,15 +6,16 @@ class HospitalsController < ApplicationController
   end
 
   def json_list
-    if params[:radius]
-      radius = params[:radius].to_i
-    else
-      radius = 5000
-    end
+    max_distance = 5000
+    max_results = 20
 
-    location = {lat: params[:lat].to_f, lon: params[:lon].to_f, radius: radius}
+    location = {lat: params[:lat].to_f, lon: params[:lon].to_f, radius: (params[:radius] || max_distance).to_i}
 
-    @hospitals = Hospital.find_hospitals_sorted(location[:lat], location[:lon], location[:radius], params[:sort])
+    @hospitals = Hospital.find_hospitals_sorted(location[:lat],
+                                                location[:lon],
+                                                location[:radius],
+                                                params[:sort],
+                                                (params[:max_results] || max_results).to_i)
     render :json => @hospitals
   end
 end
