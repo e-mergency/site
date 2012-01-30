@@ -1,4 +1,4 @@
-#update_hospital_delay_time
+#hospital_delay_time
   %h2= @hospital.name
   .clear
   = form_for([@hospital, @delay]) do |f|
@@ -22,5 +22,5 @@
   #last_updated
     = "Last updated #{distance_of_time_in_words(Time.now - @hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
 
-#goto_history
+#centered
   = link_to "Show delay history", hospital_delays_path(@hospital)
