@@ -1,0 +1,6 @@
+%h2= @hospital.name 
+
+= image_tag(@graph_url) 
+
+- if can? :manage, @hospital 
+  = link_to 'Go back', new_hospital_delay_path 
