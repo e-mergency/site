@@ -31,7 +31,7 @@ class DelaysController < ApplicationController
     dates2 = dates2.collect { |d| d * delays2.max / dates2.max if dates2.max > 0 }
     data = [dates2, delays2]
     wdays = ['Sun', 'Sat', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    (0..Date.today.wday).each do |i|
+    (0..Date.today.wday+1).each do |i|
       d = wdays.shift
       wdays.push(d)
     end
