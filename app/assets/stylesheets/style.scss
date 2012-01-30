@@ -129,6 +129,28 @@ body, select, input, textarea {
     width: 250px;
 }
 
+#user_wide{
+    width: 1200px;
+    margin: 10px auto;
+    padding: 15px;
+    background-color: #FFF;
+    border: 2px solid #EEE;
+    font-size: 20px;
+
+   h2{
+        font-size: 20px;
+        margin: 0px;
+        margin-bottom: 10px;
+        padding: 0px;
+        padding-bottom: 5px;
+        border-bottom: solid 2px #EEE;
+    }
+
+    table td{
+      padding-right: 30px;
+    }
+}
+
 /* Hospital Delay Time Updates */
 #hospital_delay_time{
     width: 600px;
@@ -211,6 +233,7 @@ body, select, input, textarea {
         text-align: center;
         font-size: 16px;
     }
+
 }
 
 #centered{
