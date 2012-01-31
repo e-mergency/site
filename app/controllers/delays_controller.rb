@@ -36,7 +36,7 @@ class DelaysController < ApplicationController
       wdays.push(d)
     end
     @graph_url = Gchart.line_xy(:size => '500x300', 
-                             :title => "Last weeks delay time",
+                             :title => "Last weeks waiting time",
                              :data => data,
                              :axis_with_label => 'x,y',
                              :axis_labels => [wdays.join('|')]
