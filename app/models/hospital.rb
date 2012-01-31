@@ -14,7 +14,7 @@ class Hospital < ActiveRecord::Base
   def as_json(options={})
     j = super(:only => [:odscode, :postcode, :name, :longitude, :latitude, :distance],
           :methods => [:delay, :last_updated_at])
-    j[:distance] = self.distance
+    j[:distance] = "%.f" % self.distance
     return j
   end
 
