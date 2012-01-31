@@ -8,8 +8,6 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
   .field
-    = f.label :hospital
-    %br/
     = f.select :hospital_id, @hospitals
   .actions
-    = f.submit
+    = f.submit "Save"

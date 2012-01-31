@@ -7,7 +7,6 @@
       - @user.errors.full_messages.each do |msg|
         %li= msg
 = form_for(@user, :as => :post, :url => update_role_user_path(@user)) do |f|
-  = f.label :roles
-  %br/
   = f.select :id, Role.all.collect {|role| [ role.name, role.id ] }
-  = f.submit
+  </br>
+  = f.submit "Save"
