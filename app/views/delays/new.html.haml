@@ -20,7 +20,7 @@
     .clear
 
   #last_updated
-    = "Last updated #{distance_of_time_in_words(Time.now - @hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
+    = "Last updated #{distance_of_time_in_words_to_now(@hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
 
 #centered
   = link_to "Delay statistic", hospital_delays_path(@hospital)
