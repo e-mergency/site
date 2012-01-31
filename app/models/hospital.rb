@@ -10,6 +10,13 @@ class Hospital < ActiveRecord::Base
 
   attr_accessor :distance
 
+  def as_json(options={})
+    j = super(:only => [:odscode, :postcode, :name, :longitude, :latitude, :distance],
+          :methods => [:delay, :last_updated_at])
+    j[:distance] = self.distance
+    return j
+  end
+
   def compute_distance(lat, lon)
     lat2 = self.latitude
     lon2 = self.longitude
@@ -60,6 +67,14 @@ class Hospital < ActiveRecord::Base
 
   def current_delay
     self.delays.first or Delay.new
+  end
+
+  def delay
+    self.current_delay.minutes
+  end
+
+  def last_updated_at
+    self.current_delay.updated_at
   end
 
   ### Class methods  ###
