@@ -4,11 +4,19 @@
       @lat = json.latitude
       @lon = json.longitude
       @name = json.name
+      @postcode = json.postcode
+      @distance = json.distance
+      @delay = json.delay
+      @last_updated_at = json.last_updated_at
       @odscode = json.odscode
       @hashcode = this.hash()
       @marker = false
       @infowindow = new google.maps.InfoWindow
-        content: @name
+        content: "<h1>" + @name + "</h1>" +
+                 @postcode + "</br>"  +
+                 "Distance: " + @distance/1000 + " km</br></br>"  +
+                 "<h2>Current waiting time: " + @delay + " min</h2>" +
+                 "Updated " + @last_updated_at
 
     getLocation: ->
       return {
