@@ -24,8 +24,6 @@
 
     setMarker: (m) ->
       @marker = m
-      google.maps.event.addListener @marker, 'click', () =>
-        @infowindow.open(EMG.map,@marker);
       
     setListElement: (le) ->
       @listElement = le
@@ -52,6 +50,7 @@
       return @hashcode
 
     highlight: ->
-      # TODO: Complete this call to set the CSS to highlight
-      # for the relevant item in our list.
-      log "TODO: Highlight me with CSS! [hash: " + this.hash() + " ]"
+      @infowindow.open(EMG.map,@marker)
+    
+    removeHighlight: ->
+      @infowindow.close()
