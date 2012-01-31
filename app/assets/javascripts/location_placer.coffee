@@ -24,3 +24,7 @@
         google.maps.event.addListener marker, 'click', () =>
           @handler.unhighlightAllLocations()
           location.highlight()
+        
+        listElement.bind 'click', () =>
+          @handler.unhighlightAllLocations()
+          location.highlight()

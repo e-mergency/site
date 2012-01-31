@@ -106,6 +106,7 @@ body, select, input, textarea {
         margin: 0px;
         border-bottom: 1px #E5E5E5 solid;
         padding: 15px;
+        cursor: pointer;
         
         &.highlighted{
             background-color: #99D6FF;
