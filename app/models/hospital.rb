@@ -1,4 +1,5 @@
 class Hospital < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
   has_many :delays
   has_many :users
 
@@ -74,7 +75,7 @@ class Hospital < ActiveRecord::Base
   end
 
   def last_updated_at
-    self.current_delay.updated_at
+    distance_of_time_in_words_to_now(self.current_delay.updated_at)
   end
 
   ### Class methods  ###
