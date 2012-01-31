@@ -15,6 +15,9 @@
         'lat': @lat,
         'lon': @lon
       }
+    
+    getHashcode: ->
+      return @hashcode
 
     getName: ->
       @name
@@ -27,6 +30,9 @@
       
     setListElement: (le) ->
       @listElement = le
+    
+    paintToSidebar: ->
+      $("ul#hospital_list").append(@listElement)
 
     clearMarker: ->
       @marker.setMap(null)
@@ -51,6 +57,8 @@
 
     highlight: ->
       @infowindow.open(EMG.map,@marker)
+      @listElement.addClass("highlighted")
     
     removeHighlight: ->
       @infowindow.close()
+      @listElement.removeClass("highlighted")

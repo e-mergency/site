@@ -9,12 +9,13 @@
             map: map
             title: "Hello World!"
         )
-
-        # Push the provided location object onto our global
-        # list for storage. Also add it to the sidebar.
+        
+        listElement = $("<li class='hospital_element' id='" + location.getHashcode() + "'>" + location.getName() + "</li>")
+        
         location.setMarker(marker)
+        location.setListElement(listElement)
+        location.paintToSidebar()
         EMG.locations.push(location)
-        @handler.paintLocationToSidebar(location)
 
         # Add a callback to call the highlight method on the
         # location object (pushed to the EMG.locations above).
