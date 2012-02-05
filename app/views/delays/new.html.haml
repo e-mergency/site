@@ -10,7 +10,7 @@
     #current_waiting_time_container
       #current_waiting_time
         = f.label :minutes, 'Waiting Time'
-        = f.text_field :minutes, :size => 3, :value => @hospital.current_delay.minutes if not @hospital.current_delay.nil? 
+        = f.text_field :minutes, :size => 3, :value => @hospital.delay
         = "minutes"
         .clear
     #update_waiting_time_container
@@ -20,7 +20,7 @@
     .clear
 
   #last_updated
-    = "Last updated #{distance_of_time_in_words_to_now(@hospital.current_delay.updated_at)} ago"  if not @hospital.current_delay.nil?
+    = "Last updated #{@hospital.last_updated_at}"
 
 #centered
   = link_to "Statistic", hospital_delays_path(@hospital)

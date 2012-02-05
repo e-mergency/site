@@ -31,9 +31,9 @@ class Hospital < ActiveRecord::Base
     when "agony" # Our custom ranking algorithm
       # FIXME: replace by some smart algorithm when we have one
       # Weigh delay against distance, assuming you travel 100m / min
-      hospitals.sort!{|a,b| a.current_delay.minutes*100+a.distance <=> b.current_delay.minutes*100+b.distance}
+      hospitals.sort!{|a,b| a.delay*100+a.distance <=> b.delay*100+b.distance}
     when "wait" # By wait time
-      hospitals.sort!{|a,b| a.current_delay.minutes <=> b.current_delay.minutes}
+      hospitals.sort!{|a,b| a.delay <=> b.delay}
     else # By distance
       hospitals.sort!{|a,b| a.distance <=> b.distance}
     end
@@ -67,15 +67,19 @@ class Hospital < ActiveRecord::Base
   end
 
   def current_delay
-    self.delays.first or Delay.new
+    self.delays.first
   end
 
   def delay
-    self.current_delay.minutes
+    self.current_delay.try(:minutes) or 0
   end
 
   def last_updated_at
-    distance_of_time_in_words_to_now(self.current_delay.updated_at)
+    begin
+      "#{distance_of_time_in_words_to_now(self.current_delay.updated_at)} ago"
+    rescue
+      "never"
+    end
   end
 
   ### Class methods  ###
