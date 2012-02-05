@@ -8,5 +8,4 @@
         %li= msg
 = form_for(@user, :as => :post, :url => update_role_user_path(@user)) do |f|
   = f.select :id, Role.all.collect {|role| [ role.name, role.id ] }
-  </br>
   = f.submit "Save"
