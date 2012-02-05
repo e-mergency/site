@@ -30,7 +30,7 @@ EMG.loadHospitals = (map = EMG.map, sort = "none") ->
 
 getHospitalJSON = (afterFunction, map = EMG.map, sort) ->
   location = EMG.geoLocationHandler.getLocation()
-  $.ajax '/hospitals/json_list',
+  $.ajax '/hospitals',
     type: 'GET'
     dataType: 'json'
     data:
