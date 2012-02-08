@@ -78,10 +78,12 @@ body, select, input, textarea {
 
 .header_buttons{
   padding: 5px;
+  float: right;
 }
 
 .header_text{
   color: hsla(0, 0%, 95%, .85); 
+  display: inline;
   font-size: 16px;
   padding: 5px;
 }
