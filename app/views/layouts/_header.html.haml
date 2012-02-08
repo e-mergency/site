@@ -11,4 +11,5 @@
           = button_link_to "Administration", user_registration_path 
         = button_link_to 'Sign out', destroy_user_session_path, :method => :delete
     - else
-      = button_link_to 'Sign in', new_user_session_path
+      .header_buttons
+        = button_link_to 'Sign in', new_user_session_path
