@@ -1,3 +1,5 @@
+#= require css3buttons
+#= require_self
 #= require facebox
 #= require html5-boilerplate
 
@@ -72,6 +74,16 @@ body, select, input, textarea {
         border-bottom-color: #459671;
         text-shadow: #AAA 0 -1px 0;
     }
+}
+
+.header_buttons{
+  padding: 5px;
+}
+
+.header_text{
+  color: hsla(0, 0%, 95%, .85); 
+  font-size: 16px;
+  padding: 5px;
 }
 
 #hospital_filters{

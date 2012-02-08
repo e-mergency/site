@@ -53,6 +53,7 @@ gem 'jquery-rails'
 # Gems required for user authentication
 gem 'devise'
 gem 'cancan'
+gem 'css3buttons'
 
 # Make web-editing smoother
 gem "haml"
