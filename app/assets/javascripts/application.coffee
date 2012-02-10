@@ -22,6 +22,11 @@ setupFacebox = ->
     e.addClass('content')
   )
 
+EMG.placeUserMarker = (map = EMG.map) ->
+  location = EMG.geoLocationHandler.getLocation()
+  placer = new EMG.LocationPlacer()
+  placer.placeUserOnMap(map, location)
+
 EMG.loadHospitals = (map = EMG.map, sort = "none") ->
   for l in EMG.locations
     l.remove()
@@ -47,13 +52,12 @@ parseHospitalJSON = (hospitalJsonObjects, map = EMG.map) ->
   placer = new EMG.LocationPlacer()
   for hospitalJsonObject in hospitalJsonObjects
     hospital = new EMG.Location(hospitalJsonObject)
-    placer.placeOnMap(map, hospital)
+    placer.placeHospitalOnMap(map, hospital)
 
 resizeContentToWindow = ->
   $('#main').height($(window).height() - 80)
 
 bindFilterButtons = ->
-  log "ARGH"
   $('#hospital_filter_button_distance').bind 'click', (event) =>
     $('.hospital_filter_button').removeClass('active')
     $('#hospital_filter_button_distance').addClass('active')

@@ -1,6 +1,6 @@
 @module "EMG", ->
     class @LocationPlacer
-      placeOnMap: (map, location) ->
+      placeHospitalOnMap: (map, location) ->
         @handler = new EMG.LocationHandler()
         latlon = location.getLocation()
 
@@ -9,9 +9,9 @@
             map: map
             title: "Hello World!"
         )
-        
+
         listElement = $("<li class='hospital_element' id='" + location.getHashcode() + "'>" + location.getName() + "</li>")
-        
+
         location.setMarker(marker)
         location.setListElement(listElement)
         location.paintToSidebar()
@@ -24,7 +24,23 @@
         google.maps.event.addListener marker, 'click', () =>
           @handler.unhighlightAllLocations()
           location.highlight()
-        
+
         listElement.bind 'click', () =>
           @handler.unhighlightAllLocations()
           location.highlight()
+
+      placeUserOnMap: (map, location) ->
+
+        marker = new google.maps.Marker(
+            position: new google.maps.LatLng(location.lat, location.lon);
+            map: map
+            title: "Your current location"
+            icon: "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
+        )
+
+        infowindow = new google.maps.InfoWindow(
+            content: "Your current location"
+        )
+
+        google.maps.event.addListener marker, 'click', () =>
+              infowindow.open(map,marker)

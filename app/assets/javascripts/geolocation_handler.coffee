@@ -13,6 +13,7 @@
         if this.locationVerified()
           this.centerMapOnLocation()
           EMG.loadHospitals()
+          EMG.placeUserMarker()
         else
           this.setLocationUsingBrowser()
       else
