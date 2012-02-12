@@ -73,7 +73,7 @@ class HospitalTest < ActiveSupport::TestCase
   end
 
   test "find_hospital_near" do
-    assert Hospital.find_hospitals_near_latlon(0, 0, 10).count == 0
+    assert Hospital.find_hospitals_near_latlon(0, 0, 10).length == 0
 
     simons = (Hospital.where :name => 'Simons Hospital')[0]
     kates = (Hospital.where :name => 'Kates Hospital')[0]
@@ -83,35 +83,35 @@ class HospitalTest < ActiveSupport::TestCase
 
     # Check that the correct hospitals in the bounding box are found
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 10000)
-    assert results.count == 5
+    assert results.length == 5
     assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(kushals) and results.include?(florians)
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 9900)
-    assert results.count == 4
+    assert results.length == 4
     assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(florians)
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 5000)
-    assert results.count == 4
+    assert results.length == 4
     assert  results.include?(simons) and  results.include?(kates) and results.include?(peters) and results.include?(florians)
     
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 4900)
-    assert results.count == 2
+    assert results.length == 2
     assert  results.include?(simons) and  results.include?(kates)
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 1000)
-    assert results.count == 2
+    assert results.length == 2
     assert  results.include?(simons) and  results.include?(kates)
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 900)
-    assert results.count == 1
+    assert results.length == 1
     assert  results.include?(simons) 
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 1)
-    assert results.count == 1
+    assert results.length == 1
     assert  results.include?(simons) 
 
     results = Hospital.find_hospitals_near_latlon(simons.latitude, simons.longitude, 0)
-    assert results.count == 1
+    assert results.length == 1
     assert  results.include?(simons) 
     
     # Now check that hospitals in the bounding box but distance larger than of interest are removed
@@ -122,11 +122,11 @@ class HospitalTest < ActiveSupport::TestCase
     assert results.size == 0
 
     results = Hospital.find_hospitals_near_latlon(lat, lon, Math.sqrt(5000**2+5000**2)/2)
-    assert results.count == 3
+    assert results.length == 3
     assert  results.include?(simons) and  results.include?(florians) and results.include?(peters)
 
     results = Hospital.find_hospitals_near_latlon(lat, lon, 5500)
-    assert results.count == 4
+    assert results.length == 4
     assert  results.include?(simons) and  results.include?(florians) and results.include?(peters) and results.include?(kates)
   end
 end

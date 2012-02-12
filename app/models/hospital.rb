@@ -25,7 +25,7 @@ class Hospital < ActiveRecord::Base
   end
 
   def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results)
-    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance)
+    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results)
 
     case sort
     when "agony" # Our custom ranking algorithm
@@ -35,32 +35,26 @@ class Hospital < ActiveRecord::Base
     when "wait" # By wait time
       hospitals.sort!{|a,b| a.delay <=> b.delay}
     else # By distance
-      hospitals.sort!{|a,b| a.distance <=> b.distance}
+      hospitals # No need to sort, as the sorting by distance is the default
     end
-    # Truncate to max number of results, can only do after sorting
-    hospitals[0..max_results-1]
   end
 
-  def self.find_hospitals_near_latlon(lat, lon, max_distance)
+  # Max distance must be provided in meter
+  def self.find_hospitals_near_latlon(lat, lon, max_distance=500000, max_results=20)
+    # For perfomance reasons use the equirectangular based approximation.
+    # 
+    # Its fast and accurate for small distances
+
     earth_radius = 6371000.0
-    earth_radius_at_lat = Math.cos(Hospital.to_rad(lat))*earth_radius
+    c1 = Math.cos(Hospital.to_rad(lat)) * Hospital.to_rad(1.0)
+    c2 = Hospital.to_rad(1.0)
 
-    # Check for valid input data
-    max_distance = [earth_radius*2*Math::PI, Float(max_distance)].min
+    # TODO: avoid SQL injection by not using the #{...} statements. Unfortunately, the select statement does not support the "?" trick!?
+    hospitals = Hospital.select("*, ( (#{c2} * (latitude - #{lat}))*(#{c2} * (latitude - #{lat})) + (#{c1} * (longitude - #{lon}))*(#{c1} * (longitude - #{lon})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2)
 
-    # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
-    delta_max_lon = Hospital.to_deg(Float(max_distance)/earth_radius_at_lat)
-    delta_max_lat = Hospital.to_deg(Float(max_distance)/earth_radius)
-
-    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat))
-
-    # Remove the hospitals with distance > max_distance
-    hospitals = []
-    hospitals_bb.each do |hospital|
+    # Precompute the distance for these hospitals 
+    hospitals.each do |hospital|
       hospital.distance = hospital.compute_distance(lat, lon)
-      if hospital.distance <= max_distance
-        hospitals.push(hospital)
-      end
     end
 
     return hospitals
