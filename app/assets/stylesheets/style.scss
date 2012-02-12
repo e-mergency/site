@@ -76,6 +76,22 @@ body, select, input, textarea {
     }
 }
 
+.title{
+  display: inline;
+  font-size: 60px;
+  padding: 15px;
+  color: white; 
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.header_desc{
+  display: inline;
+  font-size: 24px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
 .header_buttons{
   padding: 5px;
   float: right;
