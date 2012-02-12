@@ -53,7 +53,7 @@ class Hospital < ActiveRecord::Base
     c2 = Hospital.to_rad(1.0)
 
     # TODO: avoid SQL injection by not using the #{...} statements. Unfortunately, the select statement does not support the "?" trick!?
-    hospitals = Hospital.select("*, ( (#{c2} * (latitude - #{lat}))*(#{c2} * (latitude - #{lat})) + (#{c1} * (longitude - #{lon}))*(#{c1} * (longitude - #{lon})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2)
+    hospitals = Hospital.select("*, ( (#{c2} * (latitude - #{lat}))*(#{c2} * (latitude - #{lat})) + (#{c1} * (longitude - #{lon}))*(#{c1} * (longitude - #{lon})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2).includes(:delays)
 
     # Precompute the distance for these hospitals 
     hospitals.each do |hospital|
