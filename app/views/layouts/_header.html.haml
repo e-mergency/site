@@ -1,9 +1,9 @@
 %p
   =alert
   - if current_user
-    .header_text
-      = "Welcome #{current_user.email}!" 
     .header_buttons
+      .header_text
+        %p= "Welcome #{current_user.email}!" 
       = button_group do
         - if current_user.roles.length>0 and (current_user.roles[0].name == 'hospital' or current_user.roles[0].name == 'admin' ) and not current_user.hospital.nil?
           = button_link_to "Update waiting time for #{current_user.hospital.name}", new_hospital_delay_path(current_user.hospital) 
