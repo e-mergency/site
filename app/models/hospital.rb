@@ -52,8 +52,7 @@ class Hospital < ActiveRecord::Base
     c1 = Math.cos(Hospital.to_rad(lat)) * Hospital.to_rad(1.0)
     c2 = Hospital.to_rad(1.0)
 
-    # TODO: avoid SQL injection by not using the #{...} statements. Unfortunately, the select statement does not support the "?" trick!?
-    hospitals = Hospital.select("*, ( (#{c2} * (latitude - #{lat}))*(#{c2} * (latitude - #{lat})) + (#{c1} * (longitude - #{lon}))*(#{c1} * (longitude - #{lon})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2).includes(:delays)
+    hospitals = Hospital.select("*, ( (#{c2.to_f} * (latitude - #{lat.to_f}))*(#{c2.to_f} * (latitude - #{lat.to_f})) + (#{c1.to_f} * (longitude - #{lon.to_f}))*(#{c1.to_f} * (longitude - #{lon.to_f})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2).includes(:delays)
 
     # Precompute the distance for these hospitals 
     hospitals.each do |hospital|
