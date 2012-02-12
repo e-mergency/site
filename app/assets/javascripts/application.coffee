@@ -22,11 +22,6 @@ setupFacebox = ->
     e.addClass('content')
   )
 
-EMG.placeUserMarker = (map = EMG.map) ->
-  location = EMG.geoLocationHandler.getLocation()
-  placer = new EMG.LocationPlacer()
-  placer.placeUserOnMap(map, location)
-
 EMG.loadHospitals = (map = EMG.map, sort = "none") ->
   for l in EMG.locations
     l.remove()
