@@ -15,7 +15,7 @@ class HospitalsController < ApplicationController
                                                 (params[:max_results] || max_results).to_i)
     respond_to do |format|
       format.html # index.html.haml
-      format.json  { render :json => @hospitals }
+      format.json  { render :json => @hospitals.as_json(:mobile => params[:mobile]) }
     end
   end
 
