@@ -92,8 +92,4 @@ $(document).ready ->
   
   EMG.geoLocationHandler = new EMG.GeolocationHandler()
   EMG.geoLocationHandler.locateUser()
-  location = EMG.geoLocationHandler.getLocation()
-  EMG.map.setCenter (new google.maps.LatLng(location.lat,location.lon))
   
-  if !EMG.loadHospitals()
-    log "Failed to load hospital data"

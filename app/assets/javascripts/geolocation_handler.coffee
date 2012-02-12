@@ -2,7 +2,6 @@
   class @GeolocationHandler
     constructor: ->
       @location = {'lat': 54.851562, 'lon': -3.977137}
-      @locationBeenVerified = false
     
     getLocation: ->
       return @location
@@ -10,10 +9,7 @@
     #Initiated process of setting the user's location
     locateUser: ->
       if this.browserGeolocationEnabled()
-        if this.locationVerified()
-          EMG.loadHospitals()
-        else
-          this.setLocationUsingBrowser()
+        this.setLocationUsingBrowser()
       else
         this.locateWithPostcode()
     
@@ -46,18 +42,17 @@
     
     # Sets the user's location to 'latlon'
     setLocation: (latlon) ->
-      log "Setting location:"
-      log latlon
+      log "Setting location: "+latlon
       @location = latlon
-      this.placeUserMarker()
+      @location.marker = this.placeUserMarker()
 
     # Zooms in to current location and initiates prompt to get user to verify 
     # the suggested location. Opens the facebox and binds the buttons
     verifyLocation: ->
       this.centerMapOnLocation()
       EMG.map.setZoom(16)
-      $.facebox({div : '#verify_location_container'}, 'verify_location')
-      this.bindFaceboxButtons()
+      if !EMG.loadHospitals()
+        log "Failed to load hospitals"
     
     # Set whether the location has been verified
     setLocationVerified: (lv) ->
@@ -79,7 +74,6 @@
     
     # Uses the postcode input textbox, asks google for a geocoded latlong.
     # If google returns one, ask the user to verify if the location is correct
-    
     geocodePostcode: ->
       log 'Geocode Postcode'
       postcode = $('#facebox #postcode_text').val()
@@ -101,7 +95,7 @@
         if navigator.geolocation
             navigator.geolocation.getCurrentPosition (position) =>
               this.setLocation {'lat': position.coords.latitude, 'lon': position.coords.longitude}
-              $.facebox("Location successfully found using HTML5.")
+              log "Location successfully found using HTML5."
               this.verifyLocation()
             , =>
               $.facebox("Error: The Geolocation service failed.")
