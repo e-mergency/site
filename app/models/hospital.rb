@@ -12,6 +12,9 @@ class Hospital < ActiveRecord::Base
   attr_accessor :distance
 
   def as_json(options={})
+    if options[:mobile]
+      return super(:only => [:odscode], :methods => [:delay])
+    end
     j = super(:only => [:odscode, :postcode, :name, :longitude, :latitude, :distance],
           :methods => [:delay, :last_updated_at])
     j[:distance] = "%.f" % self.distance

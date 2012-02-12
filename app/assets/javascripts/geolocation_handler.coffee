@@ -11,9 +11,7 @@
     locateUser: ->
       if this.browserGeolocationEnabled()
         if this.locationVerified()
-          this.centerMapOnLocation()
           EMG.loadHospitals()
-          EMG.placeUserMarker()
         else
           this.setLocationUsingBrowser()
       else
@@ -41,17 +39,23 @@
       if $('#facebox #postcode_form')
         $('#facebox #postcode_button_submit').bind 'click', (event) =>
           this.geocodePostcode()
+
+    placeUserMarker: (location = @location) ->
+      placer = new EMG.LocationPlacer()
+      placer.placeUserOnMap(EMG.map, location)
     
     # Sets the user's location to 'latlon'
     setLocation: (latlon) ->
       log "Setting location:"
       log latlon
       @location = latlon
-    
+      this.placeUserMarker()
+
     # Zooms in to current location and initiates prompt to get user to verify 
     # the suggested location. Opens the facebox and binds the buttons
     verifyLocation: ->
       this.centerMapOnLocation()
+      EMG.map.setZoom(16)
       $.facebox({div : '#verify_location_container'}, 'verify_location')
       this.bindFaceboxButtons()
     
@@ -87,7 +91,6 @@
             log result
             latlon = result[0].geometry.location
             this.setLocation {'lat': latlon.lat(), 'lon': latlon.lng()}
-            EMG.map.setZoom(16)
             this.verifyLocation()
           else
             $.facebox("Geocode was not successful for the following reason: " + status)
@@ -97,9 +100,8 @@
     setLocationUsingBrowser: ->
         if navigator.geolocation
             navigator.geolocation.getCurrentPosition (position) =>
-              @location = {'lat': position.coords.latitude, 'lon': position.coords.longitude}
+              this.setLocation {'lat': position.coords.latitude, 'lon': position.coords.longitude}
               $.facebox("Location successfully found using HTML5.")
-              EMG.map.setZoom(16)
               this.verifyLocation()
             , =>
               $.facebox("Error: The Geolocation service failed.")
