@@ -24,13 +24,13 @@ body, select, input, textarea {
 
 /* Fluid Layout */
 #header{min-height: 90px;}
-#wrapper{float:left;width:100%;margin-left:-300px;}
+#wrapper{float:left;width:100%;}
 #map_canvas{float:left;width:100%}
 #sidebar{float:right;width:300px;margin: 0;}
 #footer{clear:both;width:100%}
 
 /* Fluid Layout Styles */
-#header{height:80px; background: hsla(207, 45%, 55%, 1)}
+#header{height:90px; background: hsla(207, 45%, 55%, 1)}
 #map_canvas p{line-height:1.4}
 #sidebar{background:#FFF}
 #footer{background: #333;color: #FFF}
