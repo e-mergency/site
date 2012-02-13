@@ -38,19 +38,17 @@
             icon: "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
         )
 
-        info_location = $("<div id='verify_location'>
+        info_location = "<div id='verify_location'>
                             <p>This is where we think you are!</p>
                             <div class='clear'></div>
                             <div class='button negative' id='location_incorrect_button'>Not correct?</div>
-                          </div>")
-        infowindow = new google.maps.InfoWindow(
-            content: $('#verify_location_infotangle').html()
-            # FIMXE: Why isn't this working?
-            #content: info_location
-        )
-        # FIXME: how can I bind a function to the button click action?
-        #$('#location_incorrect_button').on 'click', () =>
-          #log "Location incorrect"
+                          </div>"
+
+        infowindow = new google.maps.InfoWindow
+            content: info_location
+
+        $('#location_incorrect_button').live 'click', () =>
+                log "Location incorrect"
 
         google.maps.event.addListener marker, 'click', () =>
               infowindow.open(map,marker)
