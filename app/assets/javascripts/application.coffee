@@ -22,6 +22,14 @@ setupFacebox = ->
     e.addClass('content')
   )
 
+EMG.fit_zoom = ->
+  bounds = new google.maps.LatLngBounds()
+  for location in EMG.locations
+    loc = location.getLocation()
+    latlng = new google.maps.LatLng(loc.lat, loc.lon)
+    bounds.extend (latlng)
+  EMG.map.fitBounds(bounds)
+
 EMG.loadHospitals = (map = EMG.map, sort = "none") ->
   for l in EMG.locations
     l.remove()
@@ -48,6 +56,7 @@ parseHospitalJSON = (hospitalJsonObjects, map = EMG.map) ->
   for hospitalJsonObject in hospitalJsonObjects
     hospital = new EMG.Location(hospitalJsonObject)
     placer.placeHospitalOnMap(map, hospital)
+  EMG.fit_zoom()
 
 resizeContentToWindow = ->
   $('#main').height($(window).height() - 80)
