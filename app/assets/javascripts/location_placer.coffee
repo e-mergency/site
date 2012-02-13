@@ -52,3 +52,4 @@
 
         google.maps.event.addListener marker, 'click', () =>
               infowindow.open(map,marker)
+        infowindow.open(map,marker)
