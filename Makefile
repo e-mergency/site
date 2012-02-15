@@ -6,4 +6,4 @@ default:
 	rake bootstrap:all
 	rake test:units
 	rake cucumber
-	rake test_data:delay_time
+	rake test_data:all
