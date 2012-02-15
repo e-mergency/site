@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if not @user.hospital.nil?
       @hospital = Hospital.new(:id => 0, :name => @user.hospital.name)
     end
-    @hospitals = Hospital.find(:all).map {|p| [p.name, p.id] }
+    @hospitals = Hospital.find(:all, :order => "name").map {|p| [p.name, p.id] }
 
     respond_to do |format|
       format.html # index.html.erb
