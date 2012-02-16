@@ -53,6 +53,13 @@
                     <div class='button negative' id='location_incorrect_button'>Not correct?</div>
                   </div>"
 
+      $('#verify_location #location_incorrect_button').live 'click', () =>
+        infowindow.setContent "<div id='postcode_form'>
+                                <p>Please enter your postcode:</p>
+                                <div class='clear'></div>
+                                <input id='postcode_text' size='10' type='text' value='SW6 1SH'>
+                                <div class='button positive' id='postcode_button_submit'>Find Me!</div>
+                              </div>"
       google.maps.event.addListener marker, 'click', () =>
         infowindow.open(EMG.map,marker)
 
