@@ -65,6 +65,13 @@
           infowindow.setMap(null)
           marker.setMap(null)
           this.geocodePostcode()
+        # Submit form when hitting enter
+        $('#postcode_form #postcode_text').live 'keypress', (e) =>
+          if e.which == 13
+            infowindow.setMap(null)
+            marker.setMap(null)
+            this.geocodePostcode()
+            return false
 
       google.maps.event.addListener marker, 'click', () =>
         infowindow.open(EMG.map,marker)
