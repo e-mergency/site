@@ -38,13 +38,25 @@
 
     placeUserMarker: (location = @location) ->
       placer = new EMG.LocationPlacer()
-      placer.placeUserOnMap(EMG.map, location)
-    
+      return placer.placeUserOnMap(EMG.map, location)
+
     # Sets the user's location to 'latlon'
     setLocation: (latlon) ->
       log "Setting location: "+latlon
       @location = latlon
-      @location.marker = this.placeUserMarker()
+      marker = this.placeUserMarker()
+
+      infowindow = new google.maps.InfoWindow
+        content: "<div id='verify_location'>
+                    <p>This is where we think you are!</p>
+                    <div class='clear'></div>
+                    <div class='button negative' id='location_incorrect_button'>Not correct?</div>
+                  </div>"
+
+      google.maps.event.addListener marker, 'click', () =>
+        infowindow.open(EMG.map,marker)
+
+      infowindow.open(EMG.map,marker)
 
     # Zooms in to current location and initiates prompt to get user to verify 
     # the suggested location. Opens the facebox and binds the buttons
