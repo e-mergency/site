@@ -1,7 +1,7 @@
 @module "EMG", ->
   class @GeolocationHandler
     constructor: ->
-      @location = {'lat': 54.851562, 'lon': -3.977137}
+      @location = {'lat': 54.851562, 'lon': -3.977137, 'postcode': ''}
     
     getLocation: ->
       return @location
@@ -42,7 +42,7 @@
 
     # Sets the user's location to 'latlon'
     setLocation: (latlon) ->
-      log "Setting location: "+latlon
+      log "Setting location: ",latlon
       @location = latlon
       marker = this.placeUserMarker()
 
@@ -57,9 +57,15 @@
         infowindow.setContent "<div id='postcode_form'>
                                 <p>Please enter your postcode:</p>
                                 <div class='clear'></div>
-                                <input id='postcode_text' size='10' type='text' value='SW6 1SH'>
+                                <input id='postcode_text' size='10' type='text' value='" + @location.postcode + "'>
                                 <div class='button positive' id='postcode_button_submit'>Find Me!</div>
                               </div>"
+        # Submit form when clicking the button
+        $('#postcode_form #postcode_button_submit').live 'click', () =>
+          infowindow.setMap(null)
+          marker.setMap(null)
+          this.geocodePostcode()
+
       google.maps.event.addListener marker, 'click', () =>
         infowindow.open(EMG.map,marker)
 
@@ -95,7 +101,7 @@
     # If google returns one, ask the user to verify if the location is correct
     geocodePostcode: ->
       log 'Geocode Postcode'
-      postcode = $('#facebox #postcode_text').val()
+      postcode = $('#postcode_form #postcode_text').val()
       log postcode
       if checkPostCode(postcode)
         geocoder = new google.maps.Geocoder();
@@ -103,7 +109,7 @@
           if status == google.maps.GeocoderStatus.OK
             log result
             latlon = result[0].geometry.location
-            this.setLocation {'lat': latlon.lat(), 'lon': latlon.lng()}
+            this.setLocation {'lat': latlon.lat(), 'lon': latlon.lng(), 'postcode': postcode}
             this.verifyLocation()
           else
             $.facebox("Geocode was not successful for the following reason: " + status)
@@ -113,8 +119,8 @@
     setLocationUsingBrowser: ->
         if navigator.geolocation
             navigator.geolocation.getCurrentPosition (position) =>
-              this.setLocation {'lat': position.coords.latitude, 'lon': position.coords.longitude}
-              log "Location successfully found using HTML5."
+              log "Location successfully found using HTML5.", position
+              this.setLocation {'lat': position.coords.latitude, 'lon': position.coords.longitude, 'postcode': ''}
               this.verifyLocation()
             , =>
               $.facebox("Error: The Geolocation service failed.")
