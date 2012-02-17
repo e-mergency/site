@@ -52,14 +52,18 @@ class Hospital < ActiveRecord::Base
     c1 = Math.cos(Hospital.to_rad(lat)) * Hospital.to_rad(1.0)
     c2 = Hospital.to_rad(1.0)
 
-    hospitals = Hospital.select("*, ( (#{c2.to_f} * (latitude - #{lat.to_f}))*(#{c2.to_f} * (latitude - #{lat.to_f})) + (#{c1.to_f} * (longitude - #{lon.to_f}))*(#{c1.to_f} * (longitude - #{lon.to_f})) ) AS distance").limit(max_results).order('distance').where("distance <= ?", (max_distance.to_f/earth_radius)**2).includes(:delays)
+    hospitals = Hospital.select('*').limit(max_results).order("( (#{c2.to_f} * (latitude - #{lat.to_f}))*(#{c2.to_f} * (latitude - #{lat.to_f})) + (#{c1.to_f} * (longitude - #{lon.to_f}))*(#{c1.to_f} * (longitude - #{lon.to_f})) )").includes(:delays)
 
     # Precompute the distance for these hospitals 
+    hospitals_dist = []
     hospitals.each do |hospital|
       hospital.distance = hospital.compute_distance(lat, lon)
+      if hospital.distance <= max_distance
+        hospitals_dist.push(hospital)
+      end
     end
 
-    return hospitals
+    return hospitals_dist
   end
 
   def current_delay
