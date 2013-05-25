@@ -44,26 +44,34 @@ class Hospital < ActiveRecord::Base
 
   # Max distance must be provided in meter
   def self.find_hospitals_near_latlon(lat, lon, max_distance=500000, max_results=20)
-    # For perfomance reasons use the equirectangular based approximation.
-    # 
-    # Its fast and accurate for small distances
-
-    earth_radius = 6371000.0
-    c1 = Math.cos(Hospital.to_rad(lat)) * Hospital.to_rad(1.0)
-    c2 = Hospital.to_rad(1.0)
-
-    hospitals = Hospital.select('*').limit(max_results).order("( (#{c2.to_f} * (latitude - #{lat.to_f}))*(#{c2.to_f} * (latitude - #{lat.to_f})) + (#{c1.to_f} * (longitude - #{lon.to_f}))*(#{c1.to_f} * (longitude - #{lon.to_f})) )").includes(:delays)
+    hospitals_bb = Hospital.find_hospitals_in_bb(lat, lon, max_distance)
 
     # Precompute the distance for these hospitals 
-    hospitals_dist = []
-    hospitals.each do |hospital|
+    hospitals = []
+    hospitals_bb.each do |hospital|
       hospital.distance = hospital.compute_distance(lat, lon)
       if hospital.distance <= max_distance
-        hospitals_dist.push(hospital)
+        hospitals.push(hospital)
       end
     end
 
-    return hospitals_dist
+    return hospitals
+  end
+
+  def self.find_hospitals_in_bb(lat, lon, max_distance)
+    earth_radius = 6371000.0
+    earth_radius_at_lat = Math.cos(Hospital.to_rad(lat))*earth_radius
+
+    # Check for valid input data
+    max_distance = [earth_radius*2*Math::PI, Float(max_distance)].min
+
+    # The hospitals of interest are in the bounding box [longtitude +- delta_max_lat, latitude +- delta_max_lon]
+    delta_max_lon = Hospital.to_deg(Float(max_distance)/earth_radius_at_lat)
+    delta_max_lat = Hospital.to_deg(Float(max_distance)/earth_radius)
+
+    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat))
+
+    return hospitals_bb
   end
 
   def current_delay
