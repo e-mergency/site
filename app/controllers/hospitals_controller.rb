@@ -19,4 +19,9 @@ class HospitalsController < ApplicationController
     end
   end
 
+  def find
+    @hospitals = Hospital.find(:all, :limit => 10)
+    render :json => @hospitals
+  end
+
 end
