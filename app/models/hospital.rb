@@ -38,14 +38,14 @@ class Hospital
     hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results)
 
     case sort
-    when "agony" # Our custom ranking algorithm
+    when "distance" # By distance
+      hospitals # No need to sort, as the sorting by distance is the default
+    when "wait" # By wait time
+      hospitals.sort!{|a,b| a.delay <=> b.delay}
+    else # Our custom ranking algorithm
       # FIXME: replace by some smart algorithm when we have one
       # Weigh delay against distance, assuming you travel 100m / min
       hospitals.sort!{|a,b| a.delay+10*a.geo_near_distance <=> b.delay+10*b.geo_near_distance}
-    when "wait" # By wait time
-      hospitals.sort!{|a,b| a.delay <=> b.delay}
-    else # By distance
-      hospitals # No need to sort, as the sorting by distance is the default
     end
   end
 
