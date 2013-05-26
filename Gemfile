@@ -45,13 +45,16 @@ group :development, :test do
   gem "guard-coffeescript"
 end
 
+# Mogoid
+gem 'mongoid', ">= 3.0"
+
 gem 'googlecharts'
 
 # Use JQuery not prototype
 gem 'jquery-rails'
 
 # Gems required for user authentication
-gem 'devise'
+gem 'devise', ">= 2.2"
 gem 'cancan'
 gem 'css3buttons'
 
