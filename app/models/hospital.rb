@@ -41,7 +41,7 @@ class Hospital
     when "agony" # Our custom ranking algorithm
       # FIXME: replace by some smart algorithm when we have one
       # Weigh delay against distance, assuming you travel 100m / min
-      hospitals.sort!{|a,b| a.delay*100+a.distance <=> b.delay*100+b.distance}
+      hospitals.sort!{|a,b| a.delay+10*a.geo_near_distance <=> b.delay+10*b.geo_near_distance}
     when "wait" # By wait time
       hospitals.sort!{|a,b| a.delay <=> b.delay}
     else # By distance
@@ -51,8 +51,7 @@ class Hospital
 
   # Max distance must be provided in meter
   def self.find_hospitals_near_latlon(lat, lon, max_distance=5, max_results=20)
-    hospitals = Hospital.geo_near([lon, lat]).spherical.distance_multiplier(6371).max_distance(max_distance).unique(true)#.limit(max_results)
-    return hospitals
+    Hospital.limit(max_results).geo_near([lon, lat]).spherical.distance_multiplier(6371).max_distance(max_distance).unique(true).to_a
   end
 
   def self.find_hospitals_in_bb(lat, lon, max_distance, max_results)
