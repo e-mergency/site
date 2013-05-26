@@ -48,6 +48,7 @@ end
 # Mogoid
 gem 'mongoid', ">= 3.1"
 
+gem 'geocoder'
 gem 'googlecharts'
 
 # Use JQuery not prototype

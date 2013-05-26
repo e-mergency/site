@@ -71,6 +71,7 @@ GEM
     execjs (1.2.9)
       multi_json (~> 1.0)
     ffi (1.0.9)
+    geocoder (1.1.8)
     gherkin (2.6.2)
       json (>= 1.4.6)
     googlecharts (1.6.8)
@@ -211,6 +212,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.0)
   database_cleaner
   devise (>= 2.2)
+  geocoder
   googlecharts
   guard
   guard-coffeescript
