@@ -3,14 +3,12 @@ require 'json'
 class HospitalsController < ApplicationController
 
   def index
-    max_distance = 500000 
+    max_distance = 5 # Distance in kilometers
     max_results = 20
 
-    location = {lat: params[:lat].to_f, lon: params[:lon].to_f, radius: (params[:radius] || max_distance).to_i}
-
-    @hospitals = Hospital.find_hospitals_sorted(location[:lat],
-                                                location[:lon],
-                                                location[:radius],
+    @hospitals = Hospital.find_hospitals_sorted(params[:lat].to_f,
+                                                params[:lon].to_f,
+                                                (params[:radius] || max_distance).to_f,
                                                 params[:sort],
                                                 (params[:max_results] || max_results).to_i)
     respond_to do |format|
