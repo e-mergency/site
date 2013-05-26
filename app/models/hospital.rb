@@ -24,7 +24,7 @@ class Hospital
     if options[:mobile]
       return super(:only => [:odscode], :methods => [:delay])
     end
-    j = super(:only => [:odscode, :postcode, :name, :location, :distance],
+    j = super(:only => [:_id, :odscode, :postcode, :name, :location, :distance],
           :methods => [:delay, :last_updated_at])
     j[:distance] = self.geo_near_distance.round(2) if self.geo_near_distance
     return j

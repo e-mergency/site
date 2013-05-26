@@ -1,6 +1,7 @@
 @module "EMG", ->
   class @Location
     constructor: (json) ->
+      @id = json._id
       @lat = json.location[1]
       @lon = json.location[0]
       @name = json.name
@@ -16,7 +17,8 @@
                  @postcode + "</br>"  +
                  "Distance: " + @distance + " km</br></br>"  +
                  "<h2>Current waiting time: " + @delay + " min</h2>" +
-                 "Updated " + @last_updated_at
+                 "Updated " + @last_updated_at +
+                 "</br><a href='/hospitals/" + @id + "/delays'>Last week's waiting time</a>"
 
     getLocation: ->
       return {
@@ -26,6 +28,9 @@
     
     getHashcode: ->
       return @hashcode
+
+    getId: ->
+      @id
 
     getName: ->
       @name
