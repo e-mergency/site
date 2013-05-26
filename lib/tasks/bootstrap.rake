@@ -17,7 +17,7 @@ namespace :bootstrap do
       user.save
       # user.confirm!
       # Change the role to a admin role
-      user.roles=[Role.find_by_name('admin')]
+      user.roles=[Role.find_by(name: 'admin')]
       user.save
     end
   end
@@ -33,10 +33,7 @@ namespace :bootstrap do
         'updated'    => j['updated'],
         'odscode'    => j['odscode'],
         'postcode'   => j['postcode'],
-        'northing'   => j['coordinates']['northing'],
-        'easting'    => j['coordinates']['easting'],
-        'longitude'  => j['coordinates']['longitude'],
-        'latitude'   => j['coordinates']['latitude']
+        'location'   => [ j['coordinates']['longitude'].to_f, j['coordinates']['latitude'].to_f ]
       } )
     end
   end
