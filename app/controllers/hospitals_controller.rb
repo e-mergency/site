@@ -6,8 +6,13 @@ class HospitalsController < ApplicationController
     max_distance = 5 # Distance in kilometers
     max_results = 20
 
-    @hospitals = Hospital.find_hospitals_sorted(params[:lat].to_f,
-                                                params[:lon].to_f,
+    if params[:postcode] then
+      lat, lng = Geocoder.search(params[:postcode]).first.coordinates
+    else
+      lat, lng = params[:lat].to_f, params[:lon].to_f
+    end
+
+    @hospitals = Hospital.find_hospitals_sorted(lat, lng,
                                                 (params[:radius] || max_distance).to_f,
                                                 params[:sort],
                                                 (params[:max_results] || max_results).to_i)
