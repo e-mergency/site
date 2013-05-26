@@ -26,7 +26,7 @@ class Hospital
     end
     j = super(:only => [:odscode, :postcode, :name, :location, :distance],
           :methods => [:delay, :last_updated_at])
-    j[:distance] = self.geo_near_distance if self.geo_near_distance
+    j[:distance] = self.geo_near_distance.round(2) if self.geo_near_distance
     return j
   end
 
@@ -76,7 +76,7 @@ class Hospital
   end
 
   def delay
-    self.current_delay.try(:minutes) or 0
+    (self.current_delay.try(:minutes) or 0).round(2)
   end
 
   def last_updated_at
