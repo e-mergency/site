@@ -47,6 +47,10 @@ group :development, :test do
   gem "guard-coffeescript"
 end
 
+group :production do
+  gem 'activerecord-postgresql-adapter'
+end
+
 # Mogoid
 gem 'mongoid', ">= 3.1"
 
