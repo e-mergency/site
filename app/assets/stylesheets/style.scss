@@ -23,7 +23,7 @@ body, select, input, textarea {
 .clear{clear:both}
 
 /* Fluid Layout */
-#header{min-height: 90px;}
+#header{min-height: 120px;}
 #wrapper{float:left;width:100%;}
 #map_canvas{float:left;width:100%}
 #sidebar{float:right;width:300px;margin: 0;}
@@ -93,12 +93,21 @@ body, select, input, textarea {
 .header_desc{
   font-size: 24px;
   float:left;
-  padding-top: 45px;
 }
 
 .header_buttons{
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 5px;
   float: right;
+}
+
+.button-group{
+  display: block;
+  .button {
+    float: right;
+  }
 }
 
 .header_text{
@@ -322,5 +331,3 @@ body, select, input, textarea {
     padding: 10px;
     margin-bottom: 10px;
 }
-
-

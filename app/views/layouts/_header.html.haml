@@ -11,6 +11,7 @@
       = button_group do
         - if current_user.roles.length>0 and (current_user.roles[0].name == 'hospital' or current_user.roles[0].name == 'admin' ) and not current_user.hospital.nil?
           = button_link_to "Update waiting time for #{current_user.hospital.name}", new_hospital_delay_path(current_user.hospital) 
+      = button_group do
         - if current_user.roles.length>0 and current_user.roles[0].name == 'admin'
           = button_link_to "Administration", user_registration_path 
         = button_link_to 'Sign out', destroy_user_session_path, :method => :delete
