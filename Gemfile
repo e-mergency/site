@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.1'
+gem 'rails', '~> 3.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'sqlite3', '>= 1.3.5'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -28,8 +28,8 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
   # RSpec
-  gem "rspec", "~> 2.6"
-  gem "rspec-rails", "~> 2.6"
+  gem "rspec"
+  gem "rspec-rails"
 
   # Cucmber
   gem "cucumber", "~> 1.0"
@@ -46,7 +46,7 @@ group :development, :test do
 end
 
 # Mogoid
-gem 'mongoid', ">= 3.0"
+gem 'mongoid', ">= 3.1"
 
 gem 'googlecharts'
 
