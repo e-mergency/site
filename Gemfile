@@ -5,8 +5,6 @@ gem 'rails', '~> 3.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3', '>= 1.3.5'
-
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -27,6 +25,8 @@ gem 'sqlite3', '>= 1.3.5'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
+  gem 'sqlite3', '>= 1.3.5'
+
   # RSpec
   gem "rspec"
   gem "rspec-rails"
