@@ -1,4 +1,7 @@
 #flash
+  .message{ :class => 'notice' }
+    %strong Disclaimer:
+    %span This site is a prototype in pre-alpha stage and does not show real live data!
   - flash.each do |key, value|
     .message{ :class => key }
       %p= value
