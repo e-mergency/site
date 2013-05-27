@@ -105,9 +105,8 @@ body, select, input, textarea {
 
 .button-group{
   display: block;
-  .button {
-    float: right;
-  }
+  float: right;
+  clear: both;
 }
 
 .header_text{
@@ -329,5 +328,4 @@ body, select, input, textarea {
 .message {
     text-align: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
