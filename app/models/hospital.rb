@@ -34,8 +34,8 @@ class Hospital
     distance = Hospital.compute_distance(lat, lon, self.location.y, self.location.x)
   end
 
-  def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results=20)
-    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results)
+  def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results=20, units='km')
+    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results, units)
 
     case sort
     when "distance" # By distance
@@ -49,9 +49,10 @@ class Hospital
     end
   end
 
-  # Max distance must be provided in meter
-  def self.find_hospitals_near_latlon(lat, lon, max_distance=5, max_results=20)
-    Hospital.limit(max_results).geo_near([lon, lat]).spherical.distance_multiplier(6371).max_distance(max_distance).unique(true).to_a
+  # Max distance must be provided in the given units (km or mi)
+  def self.find_hospitals_near_latlon(lat, lon, max_distance=5, max_results=20, units='km')
+    earth_radius = units == 'km' ? 6371.0 : 3959.0
+    Hospital.limit(max_results).geo_near([lon, lat]).spherical.distance_multiplier(earth_radius).max_distance(max_distance/earth_radius).unique(true).to_a
   end
 
   def self.find_hospitals_in_bb(lat, lon, max_distance, max_results)
