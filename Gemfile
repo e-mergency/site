@@ -27,8 +27,6 @@ gem 'rails', '~> 3.2'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'sqlite3', '>= 1.3.5'
-
   # RSpec
   gem "rspec"
   gem "rspec-rails"
@@ -45,10 +43,6 @@ group :development, :test do
 
   gem "guard"
   gem "guard-coffeescript"
-end
-
-group :production do
-  gem 'activerecord-postgresql-adapter'
 end
 
 # Mogoid
