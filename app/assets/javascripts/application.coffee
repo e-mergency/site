@@ -59,7 +59,7 @@ parseHospitalJSON = (hospitalJsonObjects, map = EMG.map) ->
   EMG.fit_zoom()
 
 resizeContentToWindow = ->
-  $('#main').height($(window).height() - 80)
+  $('#main').height($(window).height() - 160)
 
 bindFilterButtons = ->
   $('#hospital_filter_button_distance').bind 'click', (event) =>
