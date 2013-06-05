@@ -87,6 +87,14 @@ class Hospital
     end
   end
 
+  def latitude
+    self.location[1]
+  end
+
+  def longitude
+    self.location[0]
+  end
+
   ### Class methods  ###
 
   def self.to_rad(ang)
