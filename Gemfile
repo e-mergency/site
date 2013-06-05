@@ -36,6 +36,7 @@ group :development, :test do
   gem "cucumber-rails", "~> 1.0", :require => false
   gem "database_cleaner"
 
+  gem "factory_girl_rails", ">= 4.1"
   gem "jasmine", "~> 1"
   gem "ruby-debug19"
 

@@ -70,6 +70,11 @@ GEM
     erubis (2.7.0)
     execjs (1.2.9)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     ffi (1.0.9)
     geocoder (1.1.8)
     gherkin (2.6.2)
@@ -211,6 +216,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.0)
   database_cleaner
   devise (>= 2.2)
+  factory_girl_rails (>= 4.1)
   geocoder
   googlecharts
   guard
