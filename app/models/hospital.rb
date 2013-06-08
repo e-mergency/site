@@ -31,7 +31,7 @@ class Hospital
   end
 
   def compute_distance(lat, lon)
-    distance = Hospital.compute_distance(lat, lon, self.location.y, self.location.x)
+    distance = Hospital.compute_distance(lat, lon, self.location[1], self.location[0])
   end
 
   def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results=20, units='km')
