@@ -38,7 +38,7 @@ group :development, :test do
 
   gem "factory_girl_rails", ">= 4.1"
   gem "jasmine", "~> 1"
-  gem "ruby-debug19"
+  gem "debugger"
 
   gem "heroku"
 
