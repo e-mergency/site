@@ -46,6 +46,7 @@ EMergency::Application.configure do
   config.assets.precompile += %w(style.css)
   config.assets.precompile += %w(modernizr.min.js)
   config.assets.precompile += %w(respond.min.js)
+  config.assets.precompile += %w(jquery.min.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
