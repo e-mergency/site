@@ -17,7 +17,12 @@ class Hospital
 
   validate :validate_location
   def validate_location
-    errors.add(:location, 'invalid location') unless self.location[0].is_a?(Numeric) and self.location[1].is_a?(Numeric)
+    errors.add(:location, 'invalid location') unless !self.location.nil? and
+      self.location.length == 2 and
+      self.location[0].is_a?(Numeric) and
+      (-180..180).include?(self.location[0]) and
+      self.location[1].is_a?(Numeric) and
+      (-90..90).include?(self.location[1])
   end
 
   def as_json(options={})
