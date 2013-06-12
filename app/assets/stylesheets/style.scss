@@ -26,24 +26,38 @@ body, select, input, textarea {
 .clear{clear:both}
 
 /* Fluid Layout */
-#header{min-height: 120px;}
+#header{
+  min-height: 120px;
+  height:90px;
+  background: hsla(207, 45%, 55%, 1);
+}
 #wrapper{float:left;width:100%;}
-#map_canvas{float:left;width:100%}
-#sidebar{float:right;width:280px;margin: 0; overflow-x: hidden}
-#footer{clear:both;width:100%}
-
-/* Fluid Layout Styles */
-#header{height:90px; background: hsla(207, 45%, 55%, 1)}
-#map_canvas p{line-height:1.4}
-#sidebar{background:#FFF}
-#footer{background: #333;color: #FFF}
-#footer p{margin:0;padding:5px 10px}
+#map_canvas{
+  float:left;
+  width:100%;
+  p {
+    line-height:1.4;
+  }
+}
+#footer{
+  clear:both;
+  width:100%;
+  background: #333;
+  color: #FFF;
+  p {
+    margin:0;
+    padding:5px 10px;
+  }
+}
 #sidebar{
-    float: right;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    overflow: scroll;
+  background:#FFF;
+  float: right;
+  width:280px;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  overflow-x: hidden;
 }
 
 /* Buttons */
