@@ -1,7 +1,9 @@
 #flash
   .message{ :class => 'notice' }
     %strong Disclaimer:
-    %span This site is a prototype in pre-alpha stage and does not show real live data!
+    %em This site is a prototype in pre-alpha stage and does not show real live data!
+    %span Open source, MIT licensed.
+    %a{:href => "https://github.com/e-mergency/site"} Get the code!
   - flash.each do |key, value|
     .message{ :class => key }
       %p= value
