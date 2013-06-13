@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.1'
+ruby '1.9.3'
+
+gem 'rails', '~> 3.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -28,16 +28,17 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
   # RSpec
-  gem "rspec", "~> 2.6"
-  gem "rspec-rails", "~> 2.6"
+  gem "rspec"
+  gem "rspec-rails"
 
   # Cucmber
   gem "cucumber", "~> 1.0"
   gem "cucumber-rails", "~> 1.0", :require => false
   gem "database_cleaner"
 
+  gem "factory_girl_rails", ">= 4.1"
   gem "jasmine", "~> 1"
-  gem "ruby-debug19"
+  gem "debugger"
 
   gem "heroku"
 
@@ -45,13 +46,17 @@ group :development, :test do
   gem "guard-coffeescript"
 end
 
+# Mogoid
+gem 'mongoid', ">= 3.1"
+
+gem 'geocoder'
 gem 'googlecharts'
 
 # Use JQuery not prototype
 gem 'jquery-rails'
 
 # Gems required for user authentication
-gem 'devise'
+gem 'devise', ">= 2.2"
 gem 'cancan'
 gem 'css3buttons'
 

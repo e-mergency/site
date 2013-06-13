@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/show
   # GET /users/1/show.xml
-  def show 
+  def show
     @user = User.find(params[:id])
 
     respond_to do |format|
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if not @user.hospital.nil?
       @hospital = Hospital.new(:id => 0, :name => @user.hospital.name)
     end
-    @hospitals = Hospital.find(:all, :order => "name").map {|p| [p.name, p.id] }
+    @hospitals = Hospital.order_by(:name.asc).map {|p| [p.name, p.id] }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   # POST /users/1/update_role
   def update_role
     @user = User.find(params[:id])
-    @user.roles = [Role.find_by_id(params["post"]["id"])] 
+    @user.roles = [Role.find_by_id(params["post"]["id"])]
 
     respond_to do |format|
       if @user.save

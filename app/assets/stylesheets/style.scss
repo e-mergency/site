@@ -4,7 +4,7 @@
 #= require html5-boilerplate
 
 /* Core styles for body/containers */
-html { height: 100% }
+html { height: 100%; overflow: hidden }
 body { height: 100%; margin: 0; padding: 0 }
 #container{ width: 100%; height: 100%; position: relative}
 #main{ width: 100%; height: 100%; position: relative;}
@@ -19,28 +19,45 @@ body, select, input, textarea {
     font-variant: normal;
     font-weight: 300;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 
 .clear{clear:both}
 
 /* Fluid Layout */
-#header{min-height: 90px;}
+#header{
+  min-height: 120px;
+  height:90px;
+  background: hsla(207, 45%, 55%, 1);
+}
 #wrapper{float:left;width:100%;}
-#map_canvas{float:left;width:100%}
-#sidebar{float:right;width:300px;margin: 0;}
-#footer{clear:both;width:100%}
-
-/* Fluid Layout Styles */
-#header{height:90px; background: hsla(207, 45%, 55%, 1)}
-#map_canvas p{line-height:1.4}
-#sidebar{background:#FFF}
-#footer{background: #333;color: #FFF}
-#footer p{margin:0;padding:5px 10px}
+#map_canvas{
+  float:left;
+  width:100%;
+  p {
+    line-height:1.4;
+  }
+}
+#footer{
+  clear:both;
+  width:100%;
+  background: #333;
+  color: #FFF;
+  p {
+    margin:0;
+    padding:5px 10px;
+  }
+}
 #sidebar{
-    float: right;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    overflow: scroll;
+  background:#FFF;
+  float: right;
+  width:280px;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  overflow-x: hidden;
 }
 
 /* Buttons */
@@ -93,12 +110,20 @@ body, select, input, textarea {
 .header_desc{
   font-size: 24px;
   float:left;
-  padding-top: 45px;
 }
 
 .header_buttons{
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 5px;
   float: right;
+}
+
+.button-group{
+  display: block;
+  float: right;
+  clear: both;
 }
 
 .header_text{
@@ -110,7 +135,8 @@ body, select, input, textarea {
 }
 
 #hospital_filters{
-    padding: 15px;
+    margin: 15px;
+    height: 30px;
     .hospital_filter_button{
         float: left;
         padding: 5px;
@@ -131,7 +157,7 @@ body, select, input, textarea {
 
 
 #hospital_list{
-    margin: 15px;
+    margin: 0;
     border-top: 1px #E5E5E5 solid;
 
     li{
@@ -320,7 +346,4 @@ body, select, input, textarea {
 .message {
     text-align: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
-
-

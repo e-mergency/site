@@ -1,8 +1,9 @@
 @module "EMG", ->
   class @Location
     constructor: (json) ->
-      @lat = json.latitude
-      @lon = json.longitude
+      @id = json._id
+      @lat = json.location[1]
+      @lon = json.location[0]
       @name = json.name
       @postcode = json.postcode
       @distance = json.distance
@@ -14,9 +15,10 @@
       @infowindow = new google.maps.InfoWindow
         content: "<h1>" + @name + "</h1>" +
                  @postcode + "</br>"  +
-                 "Distance: " + @distance/1000 + " km</br></br>"  +
+                 "Distance: " + @distance + " km</br></br>"  +
                  "<h2>Current waiting time: " + @delay + " min</h2>" +
-                 "Updated " + @last_updated_at
+                 "Updated " + @last_updated_at +
+                 "</br><a href='/hospitals/" + @id + "/delays'>Last week's waiting time</a>"
 
     getLocation: ->
       return {
@@ -26,6 +28,9 @@
     
     getHashcode: ->
       return @hashcode
+
+    getId: ->
+      @id
 
     getName: ->
       @name

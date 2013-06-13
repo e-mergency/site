@@ -2,6 +2,13 @@ require 'json'
 
 namespace :bootstrap do
 
+  desc "Creates the roles"
+  task :create_roles => :environment do
+    %w[guest hospital admin].map do |name|
+      Role.find_or_create_by(name: name)
+    end
+  end
+
   desc "Creates the admin users"
   task :admin_users => :environment do
     %w[ simon.funke florian.rathgeber kushi.p peterejhamilton].map do |name|
@@ -17,7 +24,7 @@ namespace :bootstrap do
       user.save
       # user.confirm!
       # Change the role to a admin role
-      user.roles=[Role.find_by_name('admin')]
+      user.roles=[Role.find_by(name: 'admin')]
       user.save
     end
   end
@@ -33,15 +40,12 @@ namespace :bootstrap do
         'updated'    => j['updated'],
         'odscode'    => j['odscode'],
         'postcode'   => j['postcode'],
-        'northing'   => j['coordinates']['northing'],
-        'easting'    => j['coordinates']['easting'],
-        'longitude'  => j['coordinates']['longitude'],
-        'latitude'   => j['coordinates']['latitude']
+        'location'   => [ j['coordinates']['longitude'].to_f, j['coordinates']['latitude'].to_f ]
       } )
     end
   end
 
   desc "Run all bootstrapping tasks"
-  task :all => [:admin_users, :import_hospitals]
+  task :all => [:create_roles, :admin_users, :import_hospitals]
 
 end

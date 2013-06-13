@@ -8,10 +8,7 @@
     
     #Initiated process of setting the user's location
     locateUser: ->
-      if this.browserGeolocationEnabled()
-        this.setLocationUsingBrowser()
-      else
-        this.locateWithPostcode()
+      this.setLocationUsingBrowser()
     
     # Centers the map on the current user's recorded location
     centerMapOnLocation: ->
@@ -81,6 +78,7 @@
     # Zooms in to current location and initiates prompt to get user to verify 
     # the suggested location. Opens the facebox and binds the buttons
     verifyLocation: ->
+      $.facebox.close()
       this.centerMapOnLocation()
       EMG.map.setZoom(16)
       if !EMG.loadHospitals()
@@ -130,7 +128,7 @@
               this.setLocation {'lat': position.coords.latitude, 'lon': position.coords.longitude, 'postcode': ''}
               this.verifyLocation()
             , =>
-              $.facebox("Error: The Geolocation service failed.")
+              this.locateWithPostcode()
         else
-            $.facebox("Error: Your browser doesn't support geolocation.")
+            this.locateWithPostcode()
         

@@ -1,64 +1,66 @@
-class Hospital < ActiveRecord::Base
+class Hospital
+  include Mongoid::Document
   include ActionView::Helpers::DateHelper
-  has_many :delays
-  has_many :users
 
-  validates_presence_of :latitude, :longitude, :name
+  embeds_many :delays
+  has_many :users
+  field :source_uri, type: String
+  field :name, type: String
+  field :updated, type: Date
+  field :odscode, type: String
+  field :postcode, type: String
+  field :location, type: Array
+  index({ location: "2d" })
+
+  validates_presence_of :location, :name
   validates_uniqueness_of :odscode
 
-  validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
-  validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
-
-  attr_accessor :distance
+  validate :validate_location
+  def validate_location
+    errors.add(:location, 'invalid location') unless !self.location.nil? and
+      self.location.length == 2 and
+      self.location[0].is_a?(Numeric) and
+      (-180..180).include?(self.location[0]) and
+      self.location[1].is_a?(Numeric) and
+      (-90..90).include?(self.location[1])
+  end
 
   def as_json(options={})
     if options[:mobile]
       return super(:only => [:odscode], :methods => [:delay])
     end
-    j = super(:only => [:odscode, :postcode, :name, :longitude, :latitude, :distance],
+    j = super(:only => [:_id, :odscode, :postcode, :name, :location, :distance],
           :methods => [:delay, :last_updated_at])
-    j[:distance] = "%.f" % self.distance
+    j[:distance] = self.geo_near_distance.round(2) if self.geo_near_distance
     return j
   end
 
   def compute_distance(lat, lon)
-    lat2 = self.latitude
-    lon2 = self.longitude
-    distance = Hospital.compute_distance(lat, lon, lat2, lon2)
+    distance = Hospital.compute_distance(lat, lon, self.location[1], self.location[0])
   end
 
-  def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results)
-    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results)
+  def self.find_hospitals_sorted(lat, lon, max_distance, sort, max_results=20, units='km')
+    hospitals = Hospital.find_hospitals_near_latlon(lat, lon, max_distance, max_results, units)
 
     case sort
-    when "agony" # Our custom ranking algorithm
-      # FIXME: replace by some smart algorithm when we have one
-      # Weigh delay against distance, assuming you travel 100m / min
-      hospitals.sort!{|a,b| a.delay*100+a.distance <=> b.delay*100+b.distance}
+    when "distance" # By distance
+      hospitals # No need to sort, as the sorting by distance is the default
     when "wait" # By wait time
       hospitals.sort!{|a,b| a.delay <=> b.delay}
-    else # By distance
-      hospitals # No need to sort, as the sorting by distance is the default
+    else # Our custom ranking algorithm
+      # FIXME: replace by some smart algorithm when we have one
+      # Weigh delay against distance, assuming you travel 100m / min
+      hospitals.sort!{|a,b| a.delay+10*a.geo_near_distance <=> b.delay+10*b.geo_near_distance}
     end
   end
 
-  # Max distance must be provided in meter
-  def self.find_hospitals_near_latlon(lat, lon, max_distance=500000, max_results=20)
-    hospitals_bb = Hospital.find_hospitals_in_bb(lat, lon, max_distance)
-
-    # Precompute the distance for these hospitals 
-    hospitals = []
-    hospitals_bb.each do |hospital|
-      hospital.distance = hospital.compute_distance(lat, lon)
-      if hospital.distance <= max_distance
-        hospitals.push(hospital)
-      end
-    end
-
-    return hospitals
+  # Max distance must be provided in the given units (km or mi)
+  def self.find_hospitals_near_latlon(lat, lon, max_distance=5, max_results=20, units='km')
+    earth_radius = units == 'km' ? 6371.0 : 3959.0
+    Hospital.limit(max_results).geo_near([lon, lat]).spherical.distance_multiplier(earth_radius).max_distance(max_distance/earth_radius).unique(true).to_a
   end
 
-  def self.find_hospitals_in_bb(lat, lon, max_distance)
+  def self.find_hospitals_in_bb(lat, lon, max_distance, max_results)
     earth_radius = 6371000.0
     earth_radius_at_lat = Math.cos(Hospital.to_rad(lat))*earth_radius
 
@@ -69,7 +71,7 @@ class Hospital < ActiveRecord::Base
     delta_max_lon = Hospital.to_deg(Float(max_distance)/earth_radius_at_lat)
     delta_max_lat = Hospital.to_deg(Float(max_distance)/earth_radius)
 
-    hospitals_bb = Hospital.where(:longitude => (lon-delta_max_lon..lon+delta_max_lon), :latitude => (lat-delta_max_lat..lat+delta_max_lat))
+    hospitals_bb = Hospital.within_box(:location => [ [lon-delta_max_lon, lat-delta_max_lat], [lon+delta_max_lon, lat+delta_max_lat] ]).limit(max_results)
 
     return hospitals_bb
   end
@@ -79,7 +81,7 @@ class Hospital < ActiveRecord::Base
   end
 
   def delay
-    self.current_delay.try(:minutes) or 0
+    (self.current_delay.try(:minutes) or 0).round(2)
   end
 
   def last_updated_at
@@ -88,6 +90,14 @@ class Hospital < ActiveRecord::Base
     rescue
       "never"
     end
+  end
+
+  def latitude
+    self.location[1]
+  end
+
+  def longitude
+    self.location[0]
   end
 
   ### Class methods  ###

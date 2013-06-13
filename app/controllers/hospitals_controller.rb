@@ -3,16 +3,21 @@ require 'json'
 class HospitalsController < ApplicationController
 
   def index
-    max_distance = 500000 
+    max_distance = 5 # Distance in kilometers
     max_results = 20
+    units = 'km'
 
-    location = {lat: params[:lat].to_f, lon: params[:lon].to_f, radius: (params[:radius] || max_distance).to_i}
+    if params[:postcode] then
+      lat, lng = Geocoder.search(params[:postcode]).first.coordinates
+    else
+      lat, lng = params[:lat].to_f, params[:lon].to_f
+    end
 
-    @hospitals = Hospital.find_hospitals_sorted(location[:lat],
-                                                location[:lon],
-                                                location[:radius],
+    @hospitals = Hospital.find_hospitals_sorted(lat, lng,
+                                                (params[:radius] || max_distance).to_f,
                                                 params[:sort],
-                                                (params[:max_results] || max_results).to_i)
+                                                (params[:max_results] || max_results).to_i,
+                                                params[:units] || units)
     respond_to do |format|
       format.html # index.html.haml
       format.json  { render :json => @hospitals.as_json(:mobile => params[:mobile]) }
